@@ -73,5 +73,16 @@ namespace OpenHardwareMonitor.GUI {
       programArguments.Enabled = false;
       processArguments.Enabled = true;
     }
+
+    private void test_Click(object sender, EventArgs e) {
+      if (turnOnRadio.Checked) {
+        // test turn on
+        ProcessStartInfo startInfo = new ProcessStartInfo(programFilename.Text);
+        startInfo.Arguments = programArguments.Text;
+        Process.Start(startInfo);
+      } else {
+        AlertWatcher.TurnOffProcess(processArguments.Text);
+      }
+    }
   }
 }

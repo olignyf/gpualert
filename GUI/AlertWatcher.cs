@@ -186,17 +186,11 @@ namespace OpenHardwareMonitor.GUI {
       }
 
       if (triggered && config.Action == AlertParameters.ACTION.StopProcess) {
-        System.Diagnostics.Process[] procs = null;
-        procs = Process.GetProcessesByName(config.Process);
-        if (procs != null) {
-          for (int i = 0; i < procs.Length; i++) { 
-            Process proc = procs[i];
-            if (!proc.HasExited) {
-              proc.Kill();
-            }
-          }
-        }
+        // turn off process
+        TurnOffProcess(config.Process);
+
       } else if (triggered && config.Action == AlertParameters.ACTION.StartProgram) {
+        // launch program
         ProcessStartInfo startInfo = new ProcessStartInfo(config.Filename);
         startInfo.Arguments = config.Arguments;
         Process.Start(startInfo);
@@ -205,6 +199,21 @@ namespace OpenHardwareMonitor.GUI {
       if (triggered) {
         config.LastTriggered = DateTime.Now;
       }
+    }
+
+    public static bool TurnOffProcess(string processName) {
+      System.Diagnostics.Process[] procs = null;
+      procs = Process.GetProcessesByName(processName);
+      if (procs != null) {
+        for (int i = 0; i < procs.Length; i++) {
+          Process proc = procs[i];
+          if (!proc.HasExited) {
+            proc.Kill();
+          }
+        }
+        return true;
+      }
+      return false;
     }
 
     public void Redraw() {

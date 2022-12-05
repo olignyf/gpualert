@@ -62,6 +62,7 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     private void button1_Click(object sender, EventArgs e) {
+      openFileDialog1.Filter = "Executables|*.exe|All Files (*.*)|*.*";
       openFileDialog1.ShowDialog();
       string filename = openFileDialog1.FileName;
       programFilename.Text = filename;
@@ -83,6 +84,10 @@ namespace OpenHardwareMonitor.GUI {
       } else {
         AlertWatcher.TurnOffProcess(processArguments.Text);
       }
+    }
+
+    private void button3_Click(object sender, EventArgs e) {
+
     }
   }
 }

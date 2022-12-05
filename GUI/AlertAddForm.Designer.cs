@@ -40,13 +40,17 @@
 			this.processArguments = new System.Windows.Forms.TextBox();
 			this.test = new System.Windows.Forms.Button();
 			this.label5 = new System.Windows.Forms.Label();
+			this.button2 = new System.Windows.Forms.Button();
+			this.radioButton1 = new System.Windows.Forms.RadioButton();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.button3 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.minUpDn)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.maxUpDn)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// portOKButton
 			// 
-			this.portOKButton.Location = new System.Drawing.Point(382, 305);
+			this.portOKButton.Location = new System.Drawing.Point(240, 364);
 			this.portOKButton.Name = "portOKButton";
 			this.portOKButton.Size = new System.Drawing.Size(75, 23);
 			this.portOKButton.TabIndex = 0;
@@ -57,7 +61,7 @@
 			// portCancelButton
 			// 
 			this.portCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.portCancelButton.Location = new System.Drawing.Point(300, 305);
+			this.portCancelButton.Location = new System.Drawing.Point(335, 364);
 			this.portCancelButton.Name = "portCancelButton";
 			this.portCancelButton.Size = new System.Drawing.Size(75, 23);
 			this.portCancelButton.TabIndex = 1;
@@ -124,7 +128,7 @@
 			// turnOnRadio
 			// 
 			this.turnOnRadio.AutoSize = true;
-			this.turnOnRadio.Location = new System.Drawing.Point(131, 116);
+			this.turnOnRadio.Location = new System.Drawing.Point(131, 180);
 			this.turnOnRadio.Name = "turnOnRadio";
 			this.turnOnRadio.Size = new System.Drawing.Size(103, 17);
 			this.turnOnRadio.TabIndex = 12;
@@ -136,7 +140,7 @@
 			// 
 			this.turnOffRadio.AutoSize = true;
 			this.turnOffRadio.Checked = true;
-			this.turnOffRadio.Location = new System.Drawing.Point(131, 179);
+			this.turnOffRadio.Location = new System.Drawing.Point(131, 117);
 			this.turnOffRadio.Name = "turnOffRadio";
 			this.turnOffRadio.Size = new System.Drawing.Size(102, 17);
 			this.turnOffRadio.TabIndex = 13;
@@ -152,7 +156,7 @@
 			// button1
 			// 
 			this.button1.Enabled = false;
-			this.button1.Location = new System.Drawing.Point(570, 117);
+			this.button1.Location = new System.Drawing.Point(570, 179);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(134, 22);
 			this.button1.TabIndex = 14;
@@ -163,7 +167,7 @@
 			// programFilename
 			// 
 			this.programFilename.Enabled = false;
-			this.programFilename.Location = new System.Drawing.Point(240, 118);
+			this.programFilename.Location = new System.Drawing.Point(240, 180);
 			this.programFilename.Name = "programFilename";
 			this.programFilename.Size = new System.Drawing.Size(325, 20);
 			this.programFilename.TabIndex = 15;
@@ -171,7 +175,7 @@
 			// programArguments
 			// 
 			this.programArguments.Enabled = false;
-			this.programArguments.Location = new System.Drawing.Point(240, 144);
+			this.programArguments.Location = new System.Drawing.Point(240, 208);
 			this.programArguments.Name = "programArguments";
 			this.programArguments.Size = new System.Drawing.Size(325, 20);
 			this.programArguments.TabIndex = 16;
@@ -179,7 +183,7 @@
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(177, 148);
+			this.label4.Location = new System.Drawing.Point(177, 212);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(57, 13);
 			this.label4.TabIndex = 17;
@@ -187,36 +191,78 @@
 			// 
 			// processArguments
 			// 
-			this.processArguments.Location = new System.Drawing.Point(240, 178);
+			this.processArguments.Location = new System.Drawing.Point(240, 116);
 			this.processArguments.Name = "processArguments";
 			this.processArguments.Size = new System.Drawing.Size(135, 20);
 			this.processArguments.TabIndex = 18;
 			// 
 			// test
 			// 
-			this.test.Location = new System.Drawing.Point(132, 235);
+			this.test.Location = new System.Drawing.Point(240, 234);
 			this.test.Name = "test";
 			this.test.Size = new System.Drawing.Size(134, 22);
 			this.test.TabIndex = 19;
-			this.test.Text = "Test Start/Stop";
+			this.test.Text = "Test Start";
 			this.test.UseVisualStyleBackColor = true;
 			this.test.Click += new System.EventHandler(this.test_Click);
 			// 
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(381, 182);
+			this.label5.Location = new System.Drawing.Point(381, 120);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(221, 13);
 			this.label5.TabIndex = 20;
 			this.label5.Text = "a simple name like \"Photoshop\" or \"Chrome\" ";
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(240, 142);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(134, 22);
+			this.button2.TabIndex = 21;
+			this.button2.Text = "Test Stop";
+			this.button2.UseVisualStyleBackColor = true;
+			// 
+			// radioButton1
+			// 
+			this.radioButton1.AutoSize = true;
+			this.radioButton1.Location = new System.Drawing.Point(131, 281);
+			this.radioButton1.Name = "radioButton1";
+			this.radioButton1.Size = new System.Drawing.Size(77, 17);
+			this.radioButton1.TabIndex = 22;
+			this.radioButton1.Text = "Play sound";
+			this.radioButton1.UseVisualStyleBackColor = true;
+			// 
+			// textBox1
+			// 
+			this.textBox1.Enabled = false;
+			this.textBox1.Location = new System.Drawing.Point(240, 280);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(325, 20);
+			this.textBox1.TabIndex = 24;
+			// 
+			// button3
+			// 
+			this.button3.Enabled = false;
+			this.button3.Location = new System.Drawing.Point(570, 279);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(134, 22);
+			this.button3.TabIndex = 23;
+			this.button3.Text = "Select File";
+			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
 			// AlertAddForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.portCancelButton;
-			this.ClientSize = new System.Drawing.Size(754, 357);
+			this.ClientSize = new System.Drawing.Size(754, 438);
+			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.button3);
+			this.Controls.Add(this.radioButton1);
+			this.Controls.Add(this.button2);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.test);
 			this.Controls.Add(this.processArguments);
@@ -266,5 +312,9 @@
     private System.Windows.Forms.TextBox processArguments;
     private System.Windows.Forms.Button test;
     private System.Windows.Forms.Label label5;
+    private System.Windows.Forms.Button button2;
+    private System.Windows.Forms.RadioButton radioButton1;
+    private System.Windows.Forms.TextBox textBox1;
+    private System.Windows.Forms.Button button3;
   }
 }

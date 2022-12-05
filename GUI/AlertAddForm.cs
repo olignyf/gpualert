@@ -4,7 +4,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
  
-	Copyright (C) 2012 Prince Samuel <prince.samuel@gmail.com>
+	Copyright (C) 2022 Francois Oligny-Lemieux <frank.quebec+git@gmail.com>
 
 */
 
@@ -17,16 +17,19 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using System.Diagnostics;
+using OpenHardwareMonitor.Hardware;
 
 namespace OpenHardwareMonitor.GUI {
   public partial class AlertAddForm : Form {
     private MainForm parent;
+    private ISensor m_sensor;
     private string localIP;
-    public AlertAddForm(MainForm m) {
-      InitializeComponent();
+    public AlertAddForm(MainForm m, ISensor sensor) {
+      m_sensor = sensor;
       parent = m;
-
       localIP = getLocalIP();
+
+      InitializeComponent();
     }
 
     private void portTextBox_TextChanged(object sender, EventArgs e) {
@@ -46,14 +49,11 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     private void portNumericUpDn_ValueChanged(object sender, EventArgs e) {
-      string url = "http://" + localIP + ":" + portNumericUpDn.Value + "/";
-      webServerLinkLabel.Text = url;
-      webServerLinkLabel.Links.Remove(webServerLinkLabel.Links[0]);
-      webServerLinkLabel.Links.Add(0, webServerLinkLabel.Text.Length, url);
+      // unused
     }
 
     private void portOKButton_Click(object sender, EventArgs e) {
-      parent.Server.ListenerPort = (int)portNumericUpDn.Value;
+      parent.AlertWatcher.Add(m_sensor, null, (int)portNumericUpDn.Value);
       this.Close();
     }
 
@@ -62,15 +62,10 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     private void PortForm_Load(object sender, EventArgs e) {
-      portNumericUpDn.Value = parent.Server.ListenerPort;
+      // portNumericUpDn.Value = m_sensor.Value;
       portNumericUpDn_ValueChanged(null, null);
     }
 
-    private void webServerLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-      try {
-        Process.Start(new ProcessStartInfo(e.Link.LinkData.ToString()));
-      } catch { }
-    }
 
   }
 }

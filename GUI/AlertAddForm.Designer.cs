@@ -69,15 +69,16 @@
             0,
             0});
 			this.portNumericUpDn.Minimum = new decimal(new int[] {
-            8080,
+            0,
             0,
             0,
             0});
 			this.portNumericUpDn.Name = "portNumericUpDn";
 			this.portNumericUpDn.Size = new System.Drawing.Size(75, 20);
 			this.portNumericUpDn.TabIndex = 8;
+			int initialValue = (int)this.m_sensor.Value;
 			this.portNumericUpDn.Value = new decimal(new int[] {
-            8080,
+				initialValue,
             0,
             0,
             0});

@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -17,13 +18,21 @@ using OpenHardwareMonitor.Hardware;
 using OpenHardwareMonitor.Utilities;
 
 namespace OpenHardwareMonitor.GUI {
+  public class SensorAlert {
+    public ISensor Sensor { get; set; }
+    public int? Min { get; set; }
+    public int? Max { get; set; }
+  }
+
   public class AlertWatcher : IDisposable {
     private IComputer computer;
     private PersistentSettings settings;
     private UnitManager unitManager;
-    private List<ISensor> list = new List<ISensor>();
+    private List<SensorAlert> list = new List<SensorAlert>();
     private bool mainIconEnabled = false;
     private NotifyIconAdv mainIcon;
+
+    private string PERSISTANT_KEY = "alertWatcher";
 
     public AlertWatcher(IComputer computer, PersistentSettings settings,
       UnitManager unitManager) 
@@ -75,26 +84,46 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     private void SensorAdded(ISensor sensor) {
-      if (settings.GetValue(new Identifier(sensor.Identifier, 
-        "tray").ToString(), false)) 
-        Add(sensor, false);   
+      string value = settings.GetValue(new Identifier(sensor.Identifier, PERSISTANT_KEY).ToString(), "");
+      if (value != "") {
+        int? min = null;
+        int? max = null;
+        int indexOfMin = value.IndexOf("min");
+        if (indexOfMin >= 0) {
+          int parsedMin = 0;
+          if (Int32.TryParse(value.Substring(indexOfMin + 4), out parsedMin)) {
+            min = parsedMin;
+          }
+        }
+        int indexOfMax = value.IndexOf("max");
+        if (indexOfMax >= 0) {
+          int parsedMax = 0;
+          if (Int32.TryParse(value.Substring(indexOfMax + 4), out parsedMax)) {
+            max = parsedMax;
+          }
+        }
+
+        Add(sensor, min, max);
+      }
     }
 
     private void SensorRemoved(ISensor sensor) {
-      if (Contains(sensor)) 
+      SensorAlert alertConfig;
+      if (Contains(sensor, out alertConfig)) 
         Remove(sensor, false);
     }
 
     public void Dispose() {
-      foreach (SensorNotifyIcon icon in list)
-        icon.Dispose();
+      foreach (SensorAlert config in list) {
+        // cleanup here if needed config.xyz.Dispose();
+      }
       mainIcon.Dispose();
     }
 
-    private void AnalyzeSensor(ISensor sensor) {
+    private void AnalyzeSensor(SensorAlert config) {
 
       string format = "";
-      switch (sensor.SensorType) {
+      switch (config.Sensor.SensorType) {
         case SensorType.Voltage: format = "\n{0}: {1:F2} V"; break;
         case SensorType.Clock: format = "\n{0}: {1:F0} MHz"; break;
         case SensorType.Load: format = "\n{0}: {1:F1} %"; break;
@@ -107,30 +136,63 @@ namespace OpenHardwareMonitor.GUI {
         case SensorType.Data: format = "\n{0}: {1:F0} GB"; break;
         case SensorType.Factor: format = "\n{0}: {1:F3} GB"; break;
       }
-      string formattedValue = string.Format(format, sensor.Name, sensor.Value);
-      Console.WriteLine(formattedValue);
-    }
+      string formattedValue = string.Format(format, config.Sensor.Name, config.Sensor.Value);
+      Console.WriteLine(formattedValue + " Min: " + config.Min + ", Max:"+ config.Max);
 
-    public void Redraw() {
-      foreach (ISensor icon in list) {
-        AnalyzeSensor(icon);
+      bool exit = false;
+      if (config.Min != null && config.Min > config.Sensor.Value) {
+        Console.WriteLine("ALERT: value is lower than minimum " + config.Min);
+        exit = true;
+      }
+      if (config.Max != null && config.Max < config.Sensor.Value) {
+        Console.WriteLine("ALERT: value is higher than maximum " + config.Max);
+        exit = true;
+      }
+
+      if (exit) {
+        System.Diagnostics.Process[] procs = null;
+        procs = Process.GetProcessesByName("Kryptex");
+        if (procs != null) {
+          for (int i = 0; i < procs.Length; i++) { 
+            Process mspaintProc = procs[i];
+            if (!mspaintProc.HasExited) {
+              mspaintProc.Kill();
+            }
+          }
+        }
       }
     }
 
-    public bool Contains(ISensor sensor) {
-      foreach (ISensor loopItem in list)
-        if (loopItem == sensor)
+    public void Redraw() {
+      foreach (SensorAlert config in list) {
+        AnalyzeSensor(config);
+      }
+    }
+
+    public bool Contains(ISensor sensor, out SensorAlert alertConfig) {
+      foreach (SensorAlert loopItem in list) {
+        if (loopItem.Sensor == sensor) {
+          alertConfig = loopItem;
           return true;
+        }
+      }
+      alertConfig = null;
       return false;
     }
 
-    public void Add(ISensor sensor, bool balloonTip) {
-      if (Contains(sensor)) {
+    public void Add(ISensor sensor, int? min, int? max) {
+      SensorAlert alertConfig;
+      if (Contains(sensor, out alertConfig)) {
         return;
-      } else {        
-        list.Add(sensor);
+      } else {
+        SensorAlert config = new SensorAlert();
+        config.Sensor = sensor;
+        config.Min = min;
+        config.Max = max;
+        list.Add(config);
         UpdateMainIconVisibilty();
-        settings.SetValue(new Identifier(sensor.Identifier, "tray").ToString(), true);
+        string value = "min:" + min.ToString() + ";max:" + max.ToString();
+        settings.SetValue(new Identifier(sensor.Identifier, PERSISTANT_KEY).ToString(), value);
       }
     }
 
@@ -140,12 +202,13 @@ namespace OpenHardwareMonitor.GUI {
 
     private void Remove(ISensor sensor, bool deleteConfig) {
       if (deleteConfig) {
-        settings.Remove(
-          new Identifier(sensor.Identifier, "tray").ToString());
-        settings.Remove(
-          new Identifier(sensor.Identifier, "traycolor").ToString());
+        settings.Remove(new Identifier(sensor.Identifier, PERSISTANT_KEY).ToString());
       }
-      list.Remove(sensor);
+      SensorAlert instance = null;
+      foreach (SensorAlert config in list)
+        if (config.Sensor == sensor)
+          instance = config;
+      list.Remove(instance);
   
     }
 

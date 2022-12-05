@@ -736,12 +736,17 @@ namespace OpenHardwareMonitor.GUI {
           treeContextMenu.MenuItems.Add(new MenuItem("-"));
           {
             MenuItem item = new MenuItem("Add Alert");
-            item.Checked = alertWatcher.Contains(node.Sensor);
+            SensorAlert alertConfig;
+            item.Checked = alertWatcher.Contains(node.Sensor, out alertConfig);
+            if (item.Checked) {
+              item.Text = "Alert (min:"+alertConfig.Min+ ", max:"+alertConfig.Max+")";
+            }
             item.Click += delegate (object obj, EventArgs args) {
               if (item.Checked)
                 alertWatcher.Remove(node.Sensor);
-              else
-                alertWatcher.Add(node.Sensor, true);
+              else {
+                new AlertAddForm(this, node.Sensor).ShowDialog();
+              }
             };
             treeContextMenu.MenuItems.Add(item);
           }
@@ -946,6 +951,10 @@ namespace OpenHardwareMonitor.GUI {
 
     public HttpServer Server {
       get { return server; }
+    }
+
+    public AlertWatcher AlertWatcher {
+      get { return alertWatcher; }
     }
 
   }

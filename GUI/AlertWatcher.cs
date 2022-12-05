@@ -141,11 +141,11 @@ namespace OpenHardwareMonitor.GUI {
 
       bool exit = false;
       if (config.Min != null && config.Min > config.Sensor.Value) {
-        Console.WriteLine("ALERT: value is lower than minimum " + config.Min);
+        Console.WriteLine("ALERT: value "+ ((int)config.Sensor.Value).ToString() + " is lower than minimum " + config.Min);
         exit = true;
       }
       if (config.Max != null && config.Max < config.Sensor.Value) {
-        Console.WriteLine("ALERT: value is higher than maximum " + config.Max);
+        Console.WriteLine("ALERT: value " + ((int)config.Sensor.Value).ToString() + " is higher than maximum " + config.Max);
         exit = true;
       }
 

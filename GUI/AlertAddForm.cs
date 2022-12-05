@@ -53,7 +53,13 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     private void portOKButton_Click(object sender, EventArgs e) {
-      parent.AlertWatcher.Add(m_sensor, null, (int)portNumericUpDn.Value);
+      if (minUpDn.Value >= maxUpDn.Value) {
+        MessageBoxButtons buttons = MessageBoxButtons.OK;
+        string caption = "Invalid values";
+        MessageBox.Show("Minimum value is above or equal to Maximum", caption, buttons);
+        return;
+      }
+      parent.AlertWatcher.Add(m_sensor, (int)minUpDn.Value, (int)maxUpDn.Value);
       this.Close();
     }
 
@@ -62,7 +68,8 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     private void PortForm_Load(object sender, EventArgs e) {
-      // portNumericUpDn.Value = m_sensor.Value;
+      minUpDn.Value = -1;
+      maxUpDn.Value = (int)m_sensor.Value+15;
       portNumericUpDn_ValueChanged(null, null);
     }
 

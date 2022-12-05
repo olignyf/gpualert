@@ -35,7 +35,8 @@ namespace OpenHardwareMonitor.GUI {
     private IDictionary<ISensor, Color> sensorPlotColors = 
       new Dictionary<ISensor, Color>();
     private Color[] plotColorPalette;
-    private SystemTray systemTray;    
+    private AlertWatcher alertWatcher;
+    private SystemTray systemTray;
     private StartupManager startupManager = new StartupManager();
     private UpdateVisitor updateVisitor = new UpdateVisitor();
     private SensorGadget gadget;
@@ -135,6 +136,10 @@ namespace OpenHardwareMonitor.GUI {
       systemTray = new SystemTray(computer, settings, unitManager);
       systemTray.HideShowCommand += hideShowClick;
       systemTray.ExitCommand += exitClick;
+
+      alertWatcher = new AlertWatcher(computer, settings, unitManager);
+      alertWatcher.HideShowCommand += hideShowClick;
+      alertWatcher.ExitCommand += exitClick;
 
       if (Hardware.OperatingSystem.IsUnix) { // Unix
         treeView.RowHeight = Math.Max(treeView.RowHeight,
@@ -578,6 +583,7 @@ namespace OpenHardwareMonitor.GUI {
       treeView.Invalidate();
       plotPanel.InvalidatePlot();
       systemTray.Redraw();
+      alertWatcher.Redraw();
       if (gadget != null)
         gadget.Redraw();
 
@@ -661,6 +667,7 @@ namespace OpenHardwareMonitor.GUI {
       if (runWebServer.Value)
           server.Quit();
       systemTray.Dispose();
+      alertWatcher.Dispose();
     }
 
     private void aboutMenuItem_Click(object sender, EventArgs e) {
@@ -728,9 +735,20 @@ namespace OpenHardwareMonitor.GUI {
           }
           treeContextMenu.MenuItems.Add(new MenuItem("-"));
           {
+            MenuItem item = new MenuItem("Add Alert");
+            item.Checked = alertWatcher.Contains(node.Sensor);
+            item.Click += delegate (object obj, EventArgs args) {
+              if (item.Checked)
+                alertWatcher.Remove(node.Sensor);
+              else
+                alertWatcher.Add(node.Sensor, true);
+            };
+            treeContextMenu.MenuItems.Add(item);
+          }
+          {
             MenuItem item = new MenuItem("Show in Tray");
             item.Checked = systemTray.Contains(node.Sensor);
-            item.Click += delegate(object obj, EventArgs args) {
+            item.Click += delegate (object obj, EventArgs args) {
               if (item.Checked)
                 systemTray.Remove(node.Sensor);
               else

@@ -4,8 +4,8 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
  
-  Copyright (C) 2009-2012 Michael Möller <mmoeller@openhardwaremonitor.org>
-	
+	Copyright (C) 2022 Francois Oligny-Lemieux <frank.quebec+git@gmail.com>
+
 */
 
 using System;
@@ -48,6 +48,7 @@ namespace OpenHardwareMonitor.GUI {
 
   public class AlertConfig : AlertParameters {
     public ISensor Sensor { get; set; }
+    public DateTime LastTriggered { get; set; }
   }
 
   public class AlertWatcher : IDisposable {
@@ -111,41 +112,24 @@ namespace OpenHardwareMonitor.GUI {
 
     private void SensorAdded(ISensor sensor) {
       string value = settings.GetValue(new Identifier(sensor.Identifier, PERSISTANT_KEY).ToString(), "");
-      if (value != "") {/*
-        int? min = null;
-        int? max = null;
-
-        int indexOfMin = value.IndexOf("min");
-        if (indexOfMin >= 0) {
-          int parsedMin = 0;
-          if (Int32.TryParse(value.Substring(indexOfMin + 4), out parsedMin)) {
-            min = parsedMin;
-          }
-        }
-        int indexOfMax = value.IndexOf("max");
-        if (indexOfMax >= 0) {
-          int parsedMax = 0;
-          if (Int32.TryParse(value.Substring(indexOfMax + 4), out parsedMax)) {
-            max = parsedMax;
-          }
-        }*/
-
+      if (value != "") {
         XmlSerializer xmlSerializer = new XmlSerializer(typeof(AlertParameters));
         StringWriter textWriter = new StringWriter();
 
-        // And now...this will throw and Exception!
-        // Changing new XmlSerializer(typeof(T)) to new XmlSerializer(subInstance.GetType()); 
-        // solves the problem
         try {
           using (StringReader textReader = new StringReader(value)) {
             AlertParameters existingConfig = (AlertParameters)xmlSerializer.Deserialize(textReader);
-            Add(sensor, existingConfig.Min, existingConfig.Max,
-          existingConfig.Filename, existingConfig.Arguments, existingConfig.Process);
+            Add(sensor,
+              existingConfig.Min,
+              existingConfig.Max,
+              existingConfig.Action, 
+              existingConfig.Filename,
+              existingConfig.Arguments,
+              existingConfig.Process);
           }
         } catch (Exception e) {
           Console.WriteLine(e.ToString());
         }
-
       }
     }
 
@@ -191,6 +175,16 @@ namespace OpenHardwareMonitor.GUI {
         triggered = true;
       }
 
+      if (triggered) {
+        DateTime now = DateTime.Now;
+        System.TimeSpan diff = now.Subtract(config.LastTriggered);
+        if (diff.Minutes < 5) {
+          // Mute
+          Console.WriteLine("Muting alert since < 5 minutes");
+          return;
+        }
+      }
+
       if (triggered && config.Action == AlertParameters.ACTION.StopProcess) {
         System.Diagnostics.Process[] procs = null;
         procs = Process.GetProcessesByName(config.Process);
@@ -206,6 +200,10 @@ namespace OpenHardwareMonitor.GUI {
         ProcessStartInfo startInfo = new ProcessStartInfo(config.Filename);
         startInfo.Arguments = config.Arguments;
         Process.Start(startInfo);
+      }
+
+      if (triggered) {
+        config.LastTriggered = DateTime.Now;
       }
     }
 

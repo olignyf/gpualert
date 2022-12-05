@@ -29,6 +29,15 @@
 			this.minUpDn = new System.Windows.Forms.NumericUpDown();
 			this.maxUpDn = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.turnOnRadio = new System.Windows.Forms.RadioButton();
+			this.turnOffRadio = new System.Windows.Forms.RadioButton();
+			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			this.button1 = new System.Windows.Forms.Button();
+			this.programFilename = new System.Windows.Forms.TextBox();
+			this.programArguments = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.processArguments = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.minUpDn)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.maxUpDn)).BeginInit();
 			this.SuspendLayout();
@@ -66,22 +75,24 @@
 			// minUpDn
 			// 
 			this.minUpDn.Location = new System.Drawing.Point(131, 34);
-      this.minUpDn.Minimum = -1;
-      this.minUpDn.Maximum = new decimal(new int[] {
+			this.minUpDn.Maximum = new decimal(new int[] {
             20000,
             0,
             0,
             0});
+			this.minUpDn.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
 			this.minUpDn.Name = "minUpDn";
 			this.minUpDn.Size = new System.Drawing.Size(75, 20);
 			this.minUpDn.TabIndex = 8;
-			this.minUpDn.ValueChanged += new System.EventHandler(this.portNumericUpDn_ValueChanged);
 			// 
 			// maxUpDn
 			// 
 			this.maxUpDn.Location = new System.Drawing.Point(131, 75);
-      this.maxUpDn.Minimum = 0;
-      this.maxUpDn.Maximum = new decimal(new int[] {
+			this.maxUpDn.Maximum = new decimal(new int[] {
             20000,
             0,
             0,
@@ -99,12 +110,100 @@
 			this.label1.TabIndex = 10;
 			this.label1.Text = "Max Value";
 			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(77, 117);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(37, 13);
+			this.label3.TabIndex = 11;
+			this.label3.Text = "Action";
+			// 
+			// turnOnRadio
+			// 
+			this.turnOnRadio.AutoSize = true;
+			this.turnOnRadio.Location = new System.Drawing.Point(131, 116);
+			this.turnOnRadio.Name = "turnOnRadio";
+			this.turnOnRadio.Size = new System.Drawing.Size(103, 17);
+			this.turnOnRadio.TabIndex = 12;
+			this.turnOnRadio.Text = "Turn on program";
+			this.turnOnRadio.UseVisualStyleBackColor = true;
+			this.turnOnRadio.CheckedChanged += new System.EventHandler(this.turnOnRadio_CheckedChanged);
+			// 
+			// turnOffRadio
+			// 
+			this.turnOffRadio.AutoSize = true;
+			this.turnOffRadio.Checked = true;
+			this.turnOffRadio.Location = new System.Drawing.Point(131, 179);
+			this.turnOffRadio.Name = "turnOffRadio";
+			this.turnOffRadio.Size = new System.Drawing.Size(131, 17);
+			this.turnOffRadio.TabIndex = 13;
+			this.turnOffRadio.TabStop = true;
+			this.turnOffRadio.Text = "Turn off process name";
+			this.turnOffRadio.UseVisualStyleBackColor = true;
+			this.turnOffRadio.CheckedChanged += new System.EventHandler(this.turnOffRadio_CheckedChanged);
+			// 
+			// openFileDialog1
+			// 
+			this.openFileDialog1.FileName = "openFileDialog1";
+			// 
+			// button1
+			// 
+			this.button1.Enabled = false;
+			this.button1.Location = new System.Drawing.Point(239, 114);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(134, 22);
+			this.button1.TabIndex = 14;
+			this.button1.Text = "Select Program";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
+			// programFilename
+			// 
+			this.programFilename.Enabled = false;
+			this.programFilename.Location = new System.Drawing.Point(379, 115);
+			this.programFilename.Name = "programFilename";
+			this.programFilename.Size = new System.Drawing.Size(325, 20);
+			this.programFilename.TabIndex = 15;
+			// 
+			// programArguments
+			// 
+			this.programArguments.Enabled = false;
+			this.programArguments.Location = new System.Drawing.Point(379, 141);
+			this.programArguments.Name = "programArguments";
+			this.programArguments.Size = new System.Drawing.Size(325, 20);
+			this.programArguments.TabIndex = 16;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(318, 144);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(57, 13);
+			this.label4.TabIndex = 17;
+			this.label4.Text = "Arguments";
+			// 
+			// processArguments
+			// 
+			this.processArguments.Location = new System.Drawing.Point(268, 178);
+			this.processArguments.Name = "processArguments";
+			this.processArguments.Size = new System.Drawing.Size(135, 20);
+			this.processArguments.TabIndex = 18;
+			// 
 			// AlertAddForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.portCancelButton;
-			this.ClientSize = new System.Drawing.Size(473, 278);
+			this.ClientSize = new System.Drawing.Size(782, 278);
+			this.Controls.Add(this.processArguments);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.programArguments);
+			this.Controls.Add(this.programFilename);
+			this.Controls.Add(this.button1);
+			this.Controls.Add(this.turnOffRadio);
+			this.Controls.Add(this.turnOnRadio);
+			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.maxUpDn);
 			this.Controls.Add(this.minUpDn);
@@ -133,5 +232,14 @@
     private System.Windows.Forms.NumericUpDown minUpDn;
     private System.Windows.Forms.NumericUpDown maxUpDn;
     private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.Label label3;
+    private System.Windows.Forms.RadioButton turnOnRadio;
+    private System.Windows.Forms.RadioButton turnOffRadio;
+    private System.Windows.Forms.OpenFileDialog openFileDialog1;
+    private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.TextBox programFilename;
+    private System.Windows.Forms.TextBox programArguments;
+    private System.Windows.Forms.Label label4;
+    private System.Windows.Forms.TextBox processArguments;
   }
 }

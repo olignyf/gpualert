@@ -23,43 +23,25 @@ namespace OpenHardwareMonitor.GUI {
   public partial class AlertAddForm : Form {
     private MainForm parent;
     private ISensor m_sensor;
-    private string localIP;
     public AlertAddForm(MainForm m, ISensor sensor) {
       m_sensor = sensor;
       parent = m;
-      localIP = getLocalIP();
 
       InitializeComponent();
-    }
-
-    private void portTextBox_TextChanged(object sender, EventArgs e) {
-
-    }
-
-    private string getLocalIP() {
-      IPHostEntry host;
-      string localIP = "?";
-      host = Dns.GetHostEntry(Dns.GetHostName());
-      foreach (IPAddress ip in host.AddressList) {
-        if (ip.AddressFamily == AddressFamily.InterNetwork) {
-          localIP = ip.ToString();
-        }
-      }
-      return localIP;
-    }
-
-    private void portNumericUpDn_ValueChanged(object sender, EventArgs e) {
-      // unused
     }
 
     private void portOKButton_Click(object sender, EventArgs e) {
       if (minUpDn.Value >= maxUpDn.Value) {
         MessageBoxButtons buttons = MessageBoxButtons.OK;
-        string caption = "Invalid values";
-        MessageBox.Show("Minimum value is above or equal to Maximum", caption, buttons);
+        string caption = "Please correct the min/max values";
+        MessageBox.Show("Minimum value must be below Maximum", caption, buttons);
         return;
       }
-      parent.AlertWatcher.Add(m_sensor, (int)minUpDn.Value, (int)maxUpDn.Value);
+      parent.AlertWatcher.Add(m_sensor, (int)minUpDn.Value, (int)maxUpDn.Value,
+        turnOnRadio.Checked ? programFilename.Text : null,
+        turnOnRadio.Checked ? programArguments.Text : null,
+        turnOffRadio.Checked ? processArguments.Text : null
+      );
       this.Close();
     }
 
@@ -70,9 +52,26 @@ namespace OpenHardwareMonitor.GUI {
     private void PortForm_Load(object sender, EventArgs e) {
       minUpDn.Value = -1;
       maxUpDn.Value = (int)m_sensor.Value+15;
-      portNumericUpDn_ValueChanged(null, null);
     }
 
+    private void turnOnRadio_CheckedChanged(object sender, EventArgs e) {
+      button1.Enabled = true;
+      programFilename.Enabled = true;
+      programArguments.Enabled = true;
+      processArguments.Enabled = false;
+    }
 
+    private void button1_Click(object sender, EventArgs e) {
+      openFileDialog1.ShowDialog();
+      string filename = openFileDialog1.FileName;
+      programFilename.Text = filename;
+    }
+    
+    private void turnOffRadio_CheckedChanged(object sender, EventArgs e) {
+      button1.Enabled = false;
+      programFilename.Enabled = false;
+      programArguments.Enabled = false;
+      processArguments.Enabled = true;
+    }
   }
 }

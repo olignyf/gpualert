@@ -736,7 +736,7 @@ namespace OpenHardwareMonitor.GUI {
           treeContextMenu.MenuItems.Add(new MenuItem("-"));
           {
             MenuItem item = new MenuItem("Add Alert");
-            SensorAlert alertConfig;
+            AlertConfig alertConfig;
             item.Checked = alertWatcher.Contains(node.Sensor, out alertConfig);
             if (item.Checked) {
               item.Text = "Alert (min:"+alertConfig.Min+ ", max:"+alertConfig.Max+")";

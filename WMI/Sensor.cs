@@ -50,7 +50,7 @@ namespace OpenHardwareMonitor.WMI {
       if (sensor.Max != null)
         Max = (float)sensor.Max;
 
-      if (sensor.Alert != null) {
+      if (sensor.Alert != Alert) {
         Alert = sensor.Alert;
       }
 

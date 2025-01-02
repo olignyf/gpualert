@@ -277,7 +277,7 @@ namespace OpenHardwareMonitor.GUI {
         }
         list.Add(alertConfig);
         // Add info to Sensor thats it's on an alert
-        string alertText = "--";
+        string alertText = null;
         if (alertConfig.Min != null && alertConfig.Max != null && alertConfig.Min != -1 && alertConfig.Max != -1) {
           alertText = " < " + alertConfig.Min + " / > " + alertConfig.Max;
         } else if (alertConfig.Min != null && alertConfig.Min != -1) {

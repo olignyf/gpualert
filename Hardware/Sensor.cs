@@ -29,7 +29,7 @@ namespace OpenHardwareMonitor.Hardware {
     private float? currentValue;
     private float? minValue;
     private float? maxValue;
-    private string alertValue = "--";
+    private string alertValue = null;
     private readonly RingCollection<SensorValue> 
       values = new RingCollection<SensorValue>();
     private readonly ISettings settings;

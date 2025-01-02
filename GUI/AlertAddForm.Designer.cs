@@ -250,7 +250,7 @@
 			this.button3.TabIndex = 23;
 			this.button3.Text = "Select File";
 			this.button3.UseVisualStyleBackColor = true;
-			this.button3.Click += new System.EventHandler(this.button3_Click);
+			this.button3.Click += new System.EventHandler(this.button3_Click); // FIXME not implemented
 			// 
 			// button4
 			// 
@@ -262,10 +262,11 @@
 			this.button4.TabIndex = 25;
 			this.button4.Text = "Remove Alert";
 			this.button4.UseVisualStyleBackColor = true;
-			// 
-			// playSound
-			// 
-			this.playSound.AutoSize = true;
+      this.button4.Click += new System.EventHandler(this.buttonRemoveAlert_Click);
+      // 
+      // playSound
+      // 
+      this.playSound.AutoSize = true;
 			this.playSound.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.playSound.Location = new System.Drawing.Point(121, 283);
 			this.playSound.Name = "playSound";

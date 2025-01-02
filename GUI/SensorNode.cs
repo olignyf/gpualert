@@ -126,11 +126,16 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     public string Min {
-      get { return ValueToString(sensor.Min); }
+      get
+        { return ValueToString(sensor.Min); }
     }
 
     public string Max {
       get { return ValueToString(sensor.Max); }
+    }
+
+    public string Alert {
+      get { return sensor.Alert; }
     }
 
     public override bool Equals(System.Object obj) {

@@ -25,6 +25,7 @@ namespace OpenHardwareMonitor.GUI {
       InitializeComponent();
     }
 
+    // Used for both add and edit
     public AlertAddForm(MainForm m, ISensor sensor, AlertConfig alertConfig) {
       m_sensor = sensor;
       parent = m;
@@ -103,7 +104,11 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     private void button3_Click(object sender, EventArgs e) {
+      
+    }
 
+    private void buttonRemoveAlert_Click(object sender, EventArgs e) {
+      parent.AlertWatcher.Remove(m_sensor);
     }
   }
 }

@@ -39,12 +39,14 @@ namespace OpenHardwareMonitor.GUI {
       this.value = new Aga.Controls.Tree.TreeColumn();
       this.min = new Aga.Controls.Tree.TreeColumn();
       this.max = new Aga.Controls.Tree.TreeColumn();
+      this.alert = new Aga.Controls.Tree.TreeColumn();
       this.nodeImage = new Aga.Controls.Tree.NodeControls.NodeIcon();
       this.nodeCheckBox = new Aga.Controls.Tree.NodeControls.NodeCheckBox();
       this.nodeTextBoxText = new Aga.Controls.Tree.NodeControls.NodeTextBox();
       this.nodeTextBoxValue = new Aga.Controls.Tree.NodeControls.NodeTextBox();
       this.nodeTextBoxMin = new Aga.Controls.Tree.NodeControls.NodeTextBox();
       this.nodeTextBoxMax = new Aga.Controls.Tree.NodeControls.NodeTextBox();
+      this.nodeTextBoxAlert = new Aga.Controls.Tree.NodeControls.NodeTextBox();
       this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
       this.fileMenuItem = new System.Windows.Forms.MenuItem();
       this.saveReportMenuItem = new System.Windows.Forms.MenuItem();
@@ -71,6 +73,7 @@ namespace OpenHardwareMonitor.GUI {
       this.valueMenuItem = new System.Windows.Forms.MenuItem();
       this.minMenuItem = new System.Windows.Forms.MenuItem();
       this.maxMenuItem = new System.Windows.Forms.MenuItem();
+      this.alertMenuItem = new System.Windows.Forms.MenuItem();
       this.optionsMenuItem = new System.Windows.Forms.MenuItem();
       this.startMinMenuItem = new System.Windows.Forms.MenuItem();
       this.minTrayMenuItem = new System.Windows.Forms.MenuItem();
@@ -131,14 +134,20 @@ namespace OpenHardwareMonitor.GUI {
       // 
       this.min.Header = "Min";
       this.min.SortOrder = System.Windows.Forms.SortOrder.None;
-      this.min.TooltipText = null;      
+      this.min.TooltipText = null;
       // 
       // max
       // 
       this.max.Header = "Max";
       this.max.SortOrder = System.Windows.Forms.SortOrder.None;
       this.max.TooltipText = null;
-      
+      // 
+      // alert
+      // 
+      this.alert.Header = "Alert";
+      this.alert.SortOrder = System.Windows.Forms.SortOrder.None;
+      this.alert.TooltipText = null;
+
       // 
       // nodeImage
       // 
@@ -190,6 +199,15 @@ namespace OpenHardwareMonitor.GUI {
       this.nodeTextBoxMax.ParentColumn = this.max;
       this.nodeTextBoxMax.Trimming = System.Drawing.StringTrimming.EllipsisCharacter;
       this.nodeTextBoxMax.UseCompatibleTextRendering = true;
+      // 
+      // nodeTextBoxAlert
+      // 
+      this.nodeTextBoxAlert.DataPropertyName = "Alert";
+      this.nodeTextBoxAlert.IncrementalSearchEnabled = true;
+      this.nodeTextBoxAlert.LeftMargin = 3;
+      this.nodeTextBoxAlert.ParentColumn = this.alert;
+      this.nodeTextBoxAlert.Trimming = System.Drawing.StringTrimming.EllipsisCharacter;
+      this.nodeTextBoxAlert.UseCompatibleTextRendering = true;
       // 
       // mainMenu
       // 
@@ -338,6 +356,7 @@ namespace OpenHardwareMonitor.GUI {
       this.columnsMenuItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.valueMenuItem,
             this.minMenuItem,
+            this.maxMenuItem,
             this.maxMenuItem});
       this.columnsMenuItem.Text = "Columns";
       // 
@@ -355,6 +374,11 @@ namespace OpenHardwareMonitor.GUI {
       // 
       this.maxMenuItem.Index = 2;
       this.maxMenuItem.Text = "Max";
+      // 
+      // alertMenuItem
+      // 
+      this.alertMenuItem.Index = 3;
+      this.alertMenuItem.Text = "Alert";
       // 
       // optionsMenuItem
       // 
@@ -532,6 +556,7 @@ namespace OpenHardwareMonitor.GUI {
       this.treeView.Columns.Add(this.value);
       this.treeView.Columns.Add(this.min);
       this.treeView.Columns.Add(this.max);
+      this.treeView.Columns.Add(this.alert);
       this.treeView.DefaultToolTipProvider = null;
       this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
       this.treeView.DragDropMarkColor = System.Drawing.Color.Black;
@@ -547,6 +572,7 @@ namespace OpenHardwareMonitor.GUI {
       this.treeView.NodeControls.Add(this.nodeTextBoxValue);
       this.treeView.NodeControls.Add(this.nodeTextBoxMin);
       this.treeView.NodeControls.Add(this.nodeTextBoxMax);
+      this.treeView.NodeControls.Add(this.nodeTextBoxAlert);
       this.treeView.SelectedNode = null;
       this.treeView.Size = new System.Drawing.Size(386, 354);
       this.treeView.TabIndex = 0;
@@ -691,11 +717,13 @@ namespace OpenHardwareMonitor.GUI {
     private Aga.Controls.Tree.TreeColumn value;
     private Aga.Controls.Tree.TreeColumn min;
     private Aga.Controls.Tree.TreeColumn max;
+    private Aga.Controls.Tree.TreeColumn alert;
     private Aga.Controls.Tree.NodeControls.NodeIcon nodeImage;
     private Aga.Controls.Tree.NodeControls.NodeTextBox nodeTextBoxText;
     private Aga.Controls.Tree.NodeControls.NodeTextBox nodeTextBoxValue;
     private Aga.Controls.Tree.NodeControls.NodeTextBox nodeTextBoxMin;
     private Aga.Controls.Tree.NodeControls.NodeTextBox nodeTextBoxMax;
+    private Aga.Controls.Tree.NodeControls.NodeTextBox nodeTextBoxAlert;
     private SplitContainerAdv splitContainer;
     private System.Windows.Forms.MenuItem viewMenuItem;
     private System.Windows.Forms.MenuItem plotMenuItem;
@@ -718,6 +746,7 @@ namespace OpenHardwareMonitor.GUI {
     private System.Windows.Forms.MenuItem valueMenuItem;
     private System.Windows.Forms.MenuItem minMenuItem;
     private System.Windows.Forms.MenuItem maxMenuItem;
+    private System.Windows.Forms.MenuItem alertMenuItem;
     private System.Windows.Forms.MenuItem temperatureUnitsMenuItem;
     private System.Windows.Forms.MenuItem webMenuItemSeparator;
     private System.Windows.Forms.MenuItem celsiusMenuItem;

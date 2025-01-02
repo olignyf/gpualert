@@ -6,6 +6,12 @@
  
 	Copyright (C) 2022 Francois Oligny-Lemieux <frank.quebec+git@gmail.com>
 
+  Description: Add alert on min/max values
+
+  Dev pointers:
+
+  List of Alerts is accessible at runtime in AlertWatcher's `private List<AlertConfig> list`
+
 */
 
 using System;
@@ -148,7 +154,6 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     private void AnalyzeSensor(AlertConfig config) {
-
       string format = "";
       switch (config.Sensor.SensorType) {
         case SensorType.Voltage: format = "\n{0}: {1:F2} V"; break;
@@ -245,34 +250,53 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     public void Add(ISensor sensor, int? min, int? max, AlertParameters.ACTION Action, string programStart, string arguments, string processStop) {
-      AlertConfig alertConfig;
+      AlertConfig alertConfig = null;
+      bool editMode = false;
       if (Contains(sensor, out alertConfig)) {
-        return;
-      } else {
-        AlertConfig config = new AlertConfig();
-        config.Sensor = sensor;
-        config.Min = min;
-        config.Max = max;
+        // Edit Alert
+        if (alertConfig != null) {
+          editMode = true;
+          Remove(sensor);
+        } 
+      }
+
+      if (!editMode) {
+        alertConfig = new AlertConfig();
+      }
+
+        alertConfig.Sensor = sensor;
+        alertConfig.Min = min;
+        alertConfig.Max = max;
         if (programStart != null) {
-          config.Action =  AlertParameters.ACTION.START_PROGRAM;
-          config.Filename = programStart;
-          config.Arguments = arguments;
+          alertConfig.Action =  AlertParameters.ACTION.START_PROGRAM;
+          alertConfig.Filename = programStart;
+          alertConfig.Arguments = arguments;
         } else {
-          config.Action =  AlertParameters.ACTION.STOP_PROCESS;
-          config.Process = processStop;
+          alertConfig.Action =  AlertParameters.ACTION.STOP_PROCESS;
+          alertConfig.Process = processStop;
         }
-        list.Add(config);
+        list.Add(alertConfig);
+        // Add info to Sensor thats it's on an alert
+        string alertText = "--";
+        if (alertConfig.Min != null && alertConfig.Max != null && alertConfig.Min != -1 && alertConfig.Max != -1) {
+          alertText = " < " + alertConfig.Min + " / > " + alertConfig.Max;
+        } else if (alertConfig.Min != null && alertConfig.Min != -1) {
+          alertText = "< " + alertConfig.Min;
+        } else if (alertConfig.Max != null && alertConfig.Max != -1) {
+          alertText = "> " + alertConfig.Max;
+        }
+        sensor.Alert = alertText;
         UpdateMainIconVisibilty();
         string value = "";
 
-        AlertParameters toSerialize = new AlertParameters(config);
+        AlertParameters toSerialize = new AlertParameters(alertConfig);
         XmlSerializer xmlSerializer = new XmlSerializer(typeof(AlertParameters));
         using (StringWriter textWriter = new StringWriter()) {
           xmlSerializer.Serialize(textWriter, toSerialize);
           value = textWriter.ToString();
         }
         settings.SetValue(new Identifier(sensor.Identifier, PERSISTANT_KEY).ToString(), value);
-      }
+      
     }
 
     public void Remove(ISensor sensor) {
@@ -288,7 +312,8 @@ namespace OpenHardwareMonitor.GUI {
         if (config.Sensor == sensor)
           instance = config;
       list.Remove(instance);
-  
+
+      sensor.Alert = null;
     }
 
     public event EventHandler HideShowCommand;

@@ -25,6 +25,7 @@ namespace OpenHardwareMonitor.WMI {
     public float Value { get; private set; }
     public float Min { get; private set; }
     public float Max { get; private set; }
+    public string Alert { get; private set; }
     public int Index { get; private set; }
 
     #endregion
@@ -48,6 +49,11 @@ namespace OpenHardwareMonitor.WMI {
 
       if (sensor.Max != null)
         Max = (float)sensor.Max;
+
+      if (sensor.Alert != null) {
+        Alert = sensor.Alert;
+      }
+
     }
   }
 }

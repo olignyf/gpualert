@@ -9,13 +9,7 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using System.Net;
-using System.Net.Sockets;
 using System.Diagnostics;
 using OpenHardwareMonitor.Hardware;
 
@@ -23,9 +17,18 @@ namespace OpenHardwareMonitor.GUI {
   public partial class AlertAddForm : Form {
     private MainForm parent;
     private ISensor m_sensor;
+    private AlertConfig m_alertConfig;
     public AlertAddForm(MainForm m, ISensor sensor) {
       m_sensor = sensor;
       parent = m;
+
+      InitializeComponent();
+    }
+
+    public AlertAddForm(MainForm m, ISensor sensor, AlertConfig alertConfig) {
+      m_sensor = sensor;
+      parent = m;
+      m_alertConfig = alertConfig;
 
       InitializeComponent();
     }
@@ -51,7 +54,20 @@ namespace OpenHardwareMonitor.GUI {
 
     private void PortForm_Load(object sender, EventArgs e) {
       minUpDn.Value = -1;
-      maxUpDn.Value = (int)m_sensor.Value+15;
+      maxUpDn.Value = (int)m_sensor.Value + 20;
+
+      if (m_alertConfig != null) {
+        if (m_alertConfig.Action == AlertParameters.ACTION.PLAY_SOUND) {
+
+        } else if (m_alertConfig.Action == AlertParameters.ACTION.START_PROGRAM) {
+          turnOnRadio.Checked = true;
+          programArguments.Text = m_alertConfig.Arguments;
+          programFilename.Text = m_alertConfig.Filename;
+        } else if (m_alertConfig.Action == AlertParameters.ACTION.STOP_PROCESS) {
+          turnOffRadio.Checked = true;
+          processArguments.Text = m_alertConfig.Process;
+        }
+      }
     }
 
     private void turnOnRadio_CheckedChanged(object sender, EventArgs e) {

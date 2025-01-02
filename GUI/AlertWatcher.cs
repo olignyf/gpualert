@@ -23,8 +23,9 @@ namespace OpenHardwareMonitor.GUI {
 
   public class AlertParameters {
     public enum ACTION {
-      StartProgram = 1,
-      StopProcess
+      START_PROGRAM = 1,
+      STOP_PROCESS,
+      PLAY_SOUND
     }
     public int? Min { get; set; }
     public int? Max { get; set; }
@@ -185,11 +186,15 @@ namespace OpenHardwareMonitor.GUI {
         }
       }
 
-      if (triggered && config.Action == AlertParameters.ACTION.StopProcess) {
+
+      if (triggered && config.Action == AlertParameters.ACTION.PLAY_SOUND) {
+        System.Media.SoundPlayer player = new System.Media.SoundPlayer(@config.Filename);
+        player.Play();
+      } else if (triggered && config.Action == AlertParameters.ACTION.STOP_PROCESS) {
         // turn off process
         TurnOffProcess(config.Process);
 
-      } else if (triggered && config.Action == AlertParameters.ACTION.StartProgram) {
+      } else if (triggered && config.Action == AlertParameters.ACTION.START_PROGRAM) {
         // launch program
         ProcessStartInfo startInfo = new ProcessStartInfo(config.Filename);
         startInfo.Arguments = config.Arguments;
@@ -235,7 +240,7 @@ namespace OpenHardwareMonitor.GUI {
 
     public void Add(ISensor sensor, int? min, int? max, string programStart, string arguments, string processStop) {
       this.Add(sensor, min, max,
-        programStart != null ?  AlertParameters.ACTION.StartProgram :  AlertParameters.ACTION.StopProcess,
+        programStart != null ?  AlertParameters.ACTION.START_PROGRAM :  AlertParameters.ACTION.STOP_PROCESS,
         programStart, arguments, processStop);
     }
 
@@ -249,11 +254,11 @@ namespace OpenHardwareMonitor.GUI {
         config.Min = min;
         config.Max = max;
         if (programStart != null) {
-          config.Action =  AlertParameters.ACTION.StartProgram;
+          config.Action =  AlertParameters.ACTION.START_PROGRAM;
           config.Filename = programStart;
           config.Arguments = arguments;
         } else {
-          config.Action =  AlertParameters.ACTION.StopProcess;
+          config.Action =  AlertParameters.ACTION.STOP_PROCESS;
           config.Process = processStop;
         }
         list.Add(config);

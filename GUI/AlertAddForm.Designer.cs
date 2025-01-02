@@ -40,19 +40,20 @@
 			this.processArguments = new System.Windows.Forms.TextBox();
 			this.test = new System.Windows.Forms.Button();
 			this.label5 = new System.Windows.Forms.Label();
-			this.button2 = new System.Windows.Forms.Button();
-			this.radioButton1 = new System.Windows.Forms.RadioButton();
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.button3 = new System.Windows.Forms.Button();
+			this.button4 = new System.Windows.Forms.Button();
+			this.playSound = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.minUpDn)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.maxUpDn)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// portOKButton
 			// 
-			this.portOKButton.Location = new System.Drawing.Point(240, 364);
+			this.portOKButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.portOKButton.Location = new System.Drawing.Point(286, 380);
 			this.portOKButton.Name = "portOKButton";
-			this.portOKButton.Size = new System.Drawing.Size(75, 23);
+			this.portOKButton.Size = new System.Drawing.Size(75, 33);
 			this.portOKButton.TabIndex = 0;
 			this.portOKButton.Text = "OK";
 			this.portOKButton.UseVisualStyleBackColor = true;
@@ -61,9 +62,10 @@
 			// portCancelButton
 			// 
 			this.portCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.portCancelButton.Location = new System.Drawing.Point(335, 364);
+			this.portCancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.portCancelButton.Location = new System.Drawing.Point(381, 380);
 			this.portCancelButton.Name = "portCancelButton";
-			this.portCancelButton.Size = new System.Drawing.Size(75, 23);
+			this.portCancelButton.Size = new System.Drawing.Size(75, 33);
 			this.portCancelButton.TabIndex = 1;
 			this.portCancelButton.Text = "Cancel";
 			this.portCancelButton.UseVisualStyleBackColor = true;
@@ -72,15 +74,17 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(60, 37);
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Location = new System.Drawing.Point(34, 37);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(54, 13);
+			this.label2.Size = new System.Drawing.Size(67, 16);
 			this.label2.TabIndex = 4;
 			this.label2.Text = "Min Value";
 			// 
 			// minUpDn
 			// 
-			this.minUpDn.Location = new System.Drawing.Point(131, 34);
+			this.minUpDn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.minUpDn.Location = new System.Drawing.Point(118, 34);
 			this.minUpDn.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -92,45 +96,49 @@
             0,
             -2147483648});
 			this.minUpDn.Name = "minUpDn";
-			this.minUpDn.Size = new System.Drawing.Size(75, 20);
+			this.minUpDn.Size = new System.Drawing.Size(75, 22);
 			this.minUpDn.TabIndex = 8;
 			// 
 			// maxUpDn
 			// 
-			this.maxUpDn.Location = new System.Drawing.Point(131, 75);
+			this.maxUpDn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.maxUpDn.Location = new System.Drawing.Point(118, 75);
 			this.maxUpDn.Maximum = new decimal(new int[] {
             20000,
             0,
             0,
             0});
 			this.maxUpDn.Name = "maxUpDn";
-			this.maxUpDn.Size = new System.Drawing.Size(75, 20);
+			this.maxUpDn.Size = new System.Drawing.Size(75, 22);
 			this.maxUpDn.TabIndex = 9;
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(57, 77);
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.Location = new System.Drawing.Point(31, 77);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(57, 13);
+			this.label1.Size = new System.Drawing.Size(71, 16);
 			this.label1.TabIndex = 10;
 			this.label1.Text = "Max Value";
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(77, 117);
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.Location = new System.Drawing.Point(42, 118);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(37, 13);
+			this.label3.Size = new System.Drawing.Size(60, 16);
 			this.label3.TabIndex = 11;
-			this.label3.Text = "Action";
+			this.label3.Text = "Action(s)";
 			// 
 			// turnOnRadio
 			// 
 			this.turnOnRadio.AutoSize = true;
-			this.turnOnRadio.Location = new System.Drawing.Point(131, 180);
+			this.turnOnRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.turnOnRadio.Location = new System.Drawing.Point(118, 180);
 			this.turnOnRadio.Name = "turnOnRadio";
-			this.turnOnRadio.Size = new System.Drawing.Size(103, 17);
+			this.turnOnRadio.Size = new System.Drawing.Size(125, 20);
 			this.turnOnRadio.TabIndex = 12;
 			this.turnOnRadio.Text = "Turn on program";
 			this.turnOnRadio.UseVisualStyleBackColor = true;
@@ -140,9 +148,10 @@
 			// 
 			this.turnOffRadio.AutoSize = true;
 			this.turnOffRadio.Checked = true;
-			this.turnOffRadio.Location = new System.Drawing.Point(131, 117);
+			this.turnOffRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.turnOffRadio.Location = new System.Drawing.Point(118, 117);
 			this.turnOffRadio.Name = "turnOffRadio";
-			this.turnOffRadio.Size = new System.Drawing.Size(102, 17);
+			this.turnOffRadio.Size = new System.Drawing.Size(122, 20);
 			this.turnOffRadio.TabIndex = 13;
 			this.turnOffRadio.TabStop = true;
 			this.turnOffRadio.Text = "Turn off process";
@@ -156,7 +165,8 @@
 			// button1
 			// 
 			this.button1.Enabled = false;
-			this.button1.Location = new System.Drawing.Point(570, 179);
+			this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button1.Location = new System.Drawing.Point(570, 180);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(134, 22);
 			this.button1.TabIndex = 14;
@@ -167,91 +177,102 @@
 			// programFilename
 			// 
 			this.programFilename.Enabled = false;
-			this.programFilename.Location = new System.Drawing.Point(240, 180);
+			this.programFilename.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.programFilename.Location = new System.Drawing.Point(243, 180);
 			this.programFilename.Name = "programFilename";
-			this.programFilename.Size = new System.Drawing.Size(325, 20);
+			this.programFilename.Size = new System.Drawing.Size(325, 22);
 			this.programFilename.TabIndex = 15;
 			// 
 			// programArguments
 			// 
 			this.programArguments.Enabled = false;
-			this.programArguments.Location = new System.Drawing.Point(240, 208);
+			this.programArguments.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.programArguments.Location = new System.Drawing.Point(243, 210);
 			this.programArguments.Name = "programArguments";
-			this.programArguments.Size = new System.Drawing.Size(325, 20);
+			this.programArguments.Size = new System.Drawing.Size(325, 22);
 			this.programArguments.TabIndex = 16;
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(177, 212);
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Location = new System.Drawing.Point(164, 212);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(57, 13);
+			this.label4.Size = new System.Drawing.Size(72, 16);
 			this.label4.TabIndex = 17;
 			this.label4.Text = "Arguments";
 			// 
 			// processArguments
 			// 
-			this.processArguments.Location = new System.Drawing.Point(240, 116);
+			this.processArguments.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.processArguments.Location = new System.Drawing.Point(241, 117);
 			this.processArguments.Name = "processArguments";
-			this.processArguments.Size = new System.Drawing.Size(135, 20);
+			this.processArguments.Size = new System.Drawing.Size(135, 22);
 			this.processArguments.TabIndex = 18;
 			// 
 			// test
 			// 
-			this.test.Location = new System.Drawing.Point(240, 234);
+			this.test.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.test.Location = new System.Drawing.Point(154, 381);
 			this.test.Name = "test";
-			this.test.Size = new System.Drawing.Size(134, 22);
+			this.test.Size = new System.Drawing.Size(115, 32);
 			this.test.TabIndex = 19;
-			this.test.Text = "Test Start";
+			this.test.Text = "Test Action";
 			this.test.UseVisualStyleBackColor = true;
 			this.test.Click += new System.EventHandler(this.test_Click);
 			// 
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(381, 120);
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label5.Location = new System.Drawing.Point(382, 120);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(221, 13);
+			this.label5.Size = new System.Drawing.Size(276, 16);
 			this.label5.TabIndex = 20;
 			this.label5.Text = "a simple name like \"Photoshop\" or \"Chrome\" ";
-			// 
-			// button2
-			// 
-			this.button2.Location = new System.Drawing.Point(240, 142);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(134, 22);
-			this.button2.TabIndex = 21;
-			this.button2.Text = "Test Stop";
-			this.button2.UseVisualStyleBackColor = true;
-			// 
-			// radioButton1
-			// 
-			this.radioButton1.AutoSize = true;
-			this.radioButton1.Location = new System.Drawing.Point(131, 281);
-			this.radioButton1.Name = "radioButton1";
-			this.radioButton1.Size = new System.Drawing.Size(77, 17);
-			this.radioButton1.TabIndex = 22;
-			this.radioButton1.Text = "Play sound";
-			this.radioButton1.UseVisualStyleBackColor = true;
 			// 
 			// textBox1
 			// 
 			this.textBox1.Enabled = false;
-			this.textBox1.Location = new System.Drawing.Point(240, 280);
+			this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.textBox1.Location = new System.Drawing.Point(243, 280);
 			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(325, 20);
+			this.textBox1.Size = new System.Drawing.Size(325, 22);
 			this.textBox1.TabIndex = 24;
 			// 
 			// button3
 			// 
 			this.button3.Enabled = false;
-			this.button3.Location = new System.Drawing.Point(570, 279);
+			this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button3.Location = new System.Drawing.Point(571, 280);
 			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(134, 22);
+			this.button3.Size = new System.Drawing.Size(134, 23);
 			this.button3.TabIndex = 23;
 			this.button3.Text = "Select File";
 			this.button3.UseVisualStyleBackColor = true;
 			this.button3.Click += new System.EventHandler(this.button3_Click);
+			// 
+			// button4
+			// 
+			this.button4.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button4.Location = new System.Drawing.Point(477, 380);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(115, 33);
+			this.button4.TabIndex = 25;
+			this.button4.Text = "Remove Alert";
+			this.button4.UseVisualStyleBackColor = true;
+			// 
+			// playSound
+			// 
+			this.playSound.AutoSize = true;
+			this.playSound.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.playSound.Location = new System.Drawing.Point(121, 283);
+			this.playSound.Name = "playSound";
+			this.playSound.Size = new System.Drawing.Size(94, 20);
+			this.playSound.TabIndex = 26;
+			this.playSound.Text = "Play sound";
+			this.playSound.UseVisualStyleBackColor = true;
 			// 
 			// AlertAddForm
 			// 
@@ -259,10 +280,10 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.portCancelButton;
 			this.ClientSize = new System.Drawing.Size(754, 438);
+			this.Controls.Add(this.playSound);
+			this.Controls.Add(this.button4);
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.button3);
-			this.Controls.Add(this.radioButton1);
-			this.Controls.Add(this.button2);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.test);
 			this.Controls.Add(this.processArguments);
@@ -312,9 +333,9 @@
     private System.Windows.Forms.TextBox processArguments;
     private System.Windows.Forms.Button test;
     private System.Windows.Forms.Label label5;
-    private System.Windows.Forms.Button button2;
-    private System.Windows.Forms.RadioButton radioButton1;
     private System.Windows.Forms.TextBox textBox1;
     private System.Windows.Forms.Button button3;
+    private System.Windows.Forms.Button button4;
+    private System.Windows.Forms.CheckBox playSound;
   }
 }

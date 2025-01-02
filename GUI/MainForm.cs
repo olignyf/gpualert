@@ -739,11 +739,12 @@ namespace OpenHardwareMonitor.GUI {
             AlertConfig alertConfig;
             item.Checked = alertWatcher.Contains(node.Sensor, out alertConfig);
             if (item.Checked) {
-              item.Text = "Alert (min:"+alertConfig.Min+ ", max:"+alertConfig.Max+")";
+              item.Text = "Edit Alert (min:"+alertConfig.Min+ ", max:"+alertConfig.Max+")";
             }
             item.Click += delegate (object obj, EventArgs args) {
               if (item.Checked)
-                alertWatcher.Remove(node.Sensor);
+                new AlertAddForm(this, node.Sensor, alertConfig).ShowDialog();
+                //alertWatcher.Remove(node.Sensor);
               else {
                 new AlertAddForm(this, node.Sensor).ShowDialog();
               }

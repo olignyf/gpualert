@@ -14,22 +14,24 @@ using System.Diagnostics;
 using OpenHardwareMonitor.Hardware;
 
 namespace OpenHardwareMonitor.GUI {
-  public partial class AlertAddForm : Form {
-    private MainForm parent;
+
+  public partial class AlertAddEditForm : Form {
+    private MainForm m_parent;
     private ISensor m_sensor;
     private AlertConfig m_alertConfig;
-    public AlertAddForm(MainForm m, ISensor sensor) {
+
+    public AlertAddEditForm(MainForm m, ISensor sensor) {
       m_sensor = sensor;
-      parent = m;
+      m_parent = m;
 
       InitializeComponent();
     }
 
     // Used for both add and edit
-    public AlertAddForm(MainForm m, ISensor sensor, AlertConfig alertConfig) {
+    public AlertAddEditForm(MainForm m, ISensor sensor, AlertConfig alertConfig) {
       m_sensor = sensor;
-      parent = m;
-      m_alertConfig = alertConfig;
+      m_parent = m;
+      m_alertConfig = alertConfig; // this trigger Edit mode if non-null
 
       InitializeComponent();
     }
@@ -41,7 +43,7 @@ namespace OpenHardwareMonitor.GUI {
         MessageBox.Show("Minimum value must be below Maximum", caption, buttons);
         return;
       }
-      parent.AlertWatcher.Add(m_sensor, minUpDn, maxUpDn,
+      m_parent.AlertWatcher.Add(m_sensor, minUpDn, maxUpDn,
         turnOnRadio.Checked ? programFilename.Text : null,
         turnOnRadio.Checked ? programArguments.Text : null,
         turnOffRadio.Checked ? processArguments.Text : null,
@@ -134,7 +136,7 @@ namespace OpenHardwareMonitor.GUI {
 
 
     private void buttonRemoveAlert_Click(object sender, EventArgs e) {
-      parent.AlertWatcher.Remove(m_sensor);
+      m_parent.AlertWatcher.Remove(m_sensor);
     }
   }
 }

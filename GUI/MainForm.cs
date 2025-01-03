@@ -826,10 +826,10 @@ namespace OpenHardwareMonitor.GUI {
             }
             item.Click += delegate (object obj, EventArgs args) {
               if (item.Checked)
-                new AlertAddForm(this, node.Sensor, alertConfig).ShowDialog();
+                new AlertAddEditForm(this, node.Sensor, alertConfig).ShowDialog();
                 //alertWatcher.Remove(node.Sensor);
               else {
-                new AlertAddForm(this, node.Sensor).ShowDialog();
+                new AlertAddEditForm(this, node.Sensor).ShowDialog();
               }
             };
             treeContextMenu.MenuItems.Add(item);

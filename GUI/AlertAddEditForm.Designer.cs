@@ -1,5 +1,5 @@
 ﻿namespace OpenHardwareMonitor.GUI {
-  partial class AlertAddForm {
+  partial class AlertAddEditForm {
     /// <summary>
     /// Required designer variable.
     /// </summary>
@@ -23,7 +23,7 @@
     /// the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent() {
-			this.portOKButton = new System.Windows.Forms.Button();
+      this.applyButton = new System.Windows.Forms.Button();
 			this.portCancelButton = new System.Windows.Forms.Button();
 			this.label2 = new System.Windows.Forms.Label();
 			this.minUpDn = new System.Windows.Forms.NumericUpDown();
@@ -48,24 +48,24 @@
 			((System.ComponentModel.ISupportInitialize)(this.maxUpDn)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// portOKButton
+			// applyButton
 			// 
-			this.portOKButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.portOKButton.Location = new System.Drawing.Point(286, 380);
-			this.portOKButton.Name = "portOKButton";
-			this.portOKButton.Size = new System.Drawing.Size(75, 33);
-			this.portOKButton.TabIndex = 0;
-			this.portOKButton.Text = "OK";
-			this.portOKButton.UseVisualStyleBackColor = true;
-			this.portOKButton.Click += new System.EventHandler(this.portOKButton_Click);
+			this.applyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.applyButton.Location = new System.Drawing.Point(329, 393);
+			this.applyButton.Name = "applyButton";
+			this.applyButton.Size = new System.Drawing.Size(136, 33);
+			this.applyButton.TabIndex = 0;
+			this.applyButton.Text = "Save";
+			this.applyButton.UseVisualStyleBackColor = true;
+			this.applyButton.Click += new System.EventHandler(this.portOKButton_Click);
 			// 
 			// portCancelButton
 			// 
 			this.portCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.portCancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.portCancelButton.Location = new System.Drawing.Point(381, 380);
+			this.portCancelButton.Location = new System.Drawing.Point(630, 393);
 			this.portCancelButton.Name = "portCancelButton";
-			this.portCancelButton.Size = new System.Drawing.Size(75, 33);
+			this.portCancelButton.Size = new System.Drawing.Size(112, 33);
 			this.portCancelButton.TabIndex = 1;
 			this.portCancelButton.Text = "Cancel";
 			this.portCancelButton.UseVisualStyleBackColor = true;
@@ -166,9 +166,9 @@
 			// 
 			this.button1.Enabled = false;
 			this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.Location = new System.Drawing.Point(570, 180);
+			this.button1.Location = new System.Drawing.Point(570, 178);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(134, 22);
+			this.button1.Size = new System.Drawing.Size(134, 26);
 			this.button1.TabIndex = 14;
 			this.button1.Text = "Select Program";
 			this.button1.UseVisualStyleBackColor = true;
@@ -213,7 +213,7 @@
 			// test
 			// 
 			this.test.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.test.Location = new System.Drawing.Point(154, 381);
+			this.test.Location = new System.Drawing.Point(246, 329);
 			this.test.Name = "test";
 			this.test.Size = new System.Drawing.Size(115, 32);
 			this.test.TabIndex = 19;
@@ -244,11 +244,11 @@
 			// 
 			this.buttonSelectSoundFile.Enabled = false;
 			this.buttonSelectSoundFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonSelectSoundFile.Location = new System.Drawing.Point(571, 280);
+			this.buttonSelectSoundFile.Location = new System.Drawing.Point(571, 278);
 			this.buttonSelectSoundFile.Name = "buttonSelectSoundFile";
-			this.buttonSelectSoundFile.Size = new System.Drawing.Size(134, 23);
+			this.buttonSelectSoundFile.Size = new System.Drawing.Size(134, 26);
 			this.buttonSelectSoundFile.TabIndex = 23;
-			this.buttonSelectSoundFile.Text = "Select File";
+			this.buttonSelectSoundFile.Text = "Select Audio File";
 			this.buttonSelectSoundFile.UseVisualStyleBackColor = true;
 			this.buttonSelectSoundFile.Click += new System.EventHandler(this.buttonSelectSoundFile_Click);
 			// 
@@ -256,9 +256,9 @@
 			// 
 			this.button4.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button4.Location = new System.Drawing.Point(477, 380);
+			this.button4.Location = new System.Drawing.Point(22, 393);
 			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(115, 33);
+			this.button4.Size = new System.Drawing.Size(143, 33);
 			this.button4.TabIndex = 25;
 			this.button4.Text = "Remove Alert";
 			this.button4.UseVisualStyleBackColor = true;
@@ -276,7 +276,7 @@
 			this.playSoundCheckbox.UseVisualStyleBackColor = true;
 			this.playSoundCheckbox.Click += new System.EventHandler(this.playSound_Click);
 			// 
-			// AlertAddForm
+			// AlertAddEditForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -301,13 +301,13 @@
 			this.Controls.Add(this.minUpDn);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.portCancelButton);
-			this.Controls.Add(this.portOKButton);
+			this.Controls.Add(this.applyButton);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "AlertAddForm";
+			this.Name = "AlertAddEditForm";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Add Alert";
+			this.Text = m_alertConfig != null ? "Edit Alert" : "Add Alert";
 			this.Load += new System.EventHandler(this.PortForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.minUpDn)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.maxUpDn)).EndInit();
@@ -317,7 +317,7 @@
     }
     #endregion
 
-    private System.Windows.Forms.Button portOKButton;
+    private System.Windows.Forms.Button applyButton;
     private System.Windows.Forms.Button portCancelButton;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.NumericUpDown minUpDn;

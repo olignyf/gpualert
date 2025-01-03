@@ -187,9 +187,12 @@ namespace OpenHardwareMonitor.GUI {
       if (triggered) {
         DateTime now = DateTime.Now;
         System.TimeSpan diff = now.Subtract(config.LastTriggered);
-        if (diff.Minutes < 5) {
+        int minutesThreshold = settings.GetValue("alertThreshold", 5);
+        if (minutesThreshold <= 0)
+          minutesThreshold = 5;
+        if (diff.Minutes < minutesThreshold) {
           // Mute
-          Console.WriteLine("Muting alert since < 5 minutes");
+          Console.WriteLine("Muting alert since < "+ minutesThreshold + " minutes");
           return;
         }
       }

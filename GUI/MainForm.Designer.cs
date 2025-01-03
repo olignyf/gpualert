@@ -90,6 +90,7 @@ namespace OpenHardwareMonitor.GUI {
       this.alertThresholdMenuItem = new System.Windows.Forms.MenuItem();
       this.alertThreshold1min = new System.Windows.Forms.MenuItem();
       this.alertThreshold5min = new System.Windows.Forms.MenuItem();
+      this.alertThreshold10min = new System.Windows.Forms.MenuItem();
       this.webMenuItemSeparator = new System.Windows.Forms.MenuItem();
       this.webMenuItem = new System.Windows.Forms.MenuItem();
       this.runWebServerMenuItem = new System.Windows.Forms.MenuItem();
@@ -482,8 +483,10 @@ namespace OpenHardwareMonitor.GUI {
       this.alertThresholdMenuItem.Index = 7;
       this.alertThresholdMenuItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.alertThreshold1min,
-            this.alertThreshold5min,});
-      this.alertThresholdMenuItem.Text = "Alert Threshold";
+            this.alertThreshold5min,
+            this.alertThreshold10min,
+      });
+      this.alertThresholdMenuItem.Text = "Max Alert Rate";
       // 
       // alertThreshold1min
       // 
@@ -496,7 +499,13 @@ namespace OpenHardwareMonitor.GUI {
       this.alertThreshold5min.Index = 1;
       this.alertThreshold5min.RadioCheck = true;
       this.alertThreshold5min.Text = "5 min";
-    
+      // 
+      // alertThreshold10min
+      // 
+      this.alertThreshold10min.Index = 2;
+      this.alertThreshold10min.RadioCheck = true;
+      this.alertThreshold10min.Text = "10 min";
+
       // 
       // webMenuItemSeparator
       // 
@@ -792,6 +801,7 @@ namespace OpenHardwareMonitor.GUI {
     private System.Windows.Forms.MenuItem alertThresholdMenuItem;
     private System.Windows.Forms.MenuItem alertThreshold1min;
     private System.Windows.Forms.MenuItem alertThreshold5min;
+    private System.Windows.Forms.MenuItem alertThreshold10min;
     private System.Windows.Forms.MenuItem webMenuItem;
     private System.Windows.Forms.MenuItem runWebServerMenuItem;
     private System.Windows.Forms.MenuItem serverPortMenuItem;

@@ -73,6 +73,8 @@ namespace OpenHardwareMonitor.GUI {
     private UserOption logSensors;
     private UserRadioGroup loggingInterval;
     private Logger logger;
+    
+    private UserRadioGroup alertThreshold;
 
     private bool selectionDragging = false;
 
@@ -336,6 +338,61 @@ namespace OpenHardwareMonitor.GUI {
       };
 
       InitializePlotForm();
+
+      alertThreshold = new UserRadioGroup("alertThreshold", 1,
+        new[] {alertThreshold1min, alertThreshold5min, alertThreshold10min },
+        settings);
+      alertThreshold.Changed += delegate (object sender, EventArgs e) {
+        // index to value
+        int minutes = 5;
+        if (alertThreshold.Value == 0) {
+          minutes = 1;
+        } else if (alertThreshold.Value == 1) {
+          minutes = 5;
+        } else if (alertThreshold.Value == 2) {
+          minutes = 10;
+        }
+        settings.SetValue("alertThreshold", minutes);
+      };
+
+
+        showPlot.Changed += delegate (object sender, EventArgs e) {
+        if (plotLocation.Value == 0) {
+          if (showPlot.Value && this.Visible)
+            plotForm.Show();
+          else
+            plotForm.Hide();
+        } else {
+          splitContainer.Panel2Collapsed = !showPlot.Value;
+        }
+        treeView.Invalidate();
+      };
+      plotLocation.Changed += delegate (object sender, EventArgs e) {
+        switch (plotLocation.Value) {
+          case 0:
+            splitContainer.Panel2.Controls.Clear();
+            splitContainer.Panel2Collapsed = true;
+            plotForm.Controls.Add(plotPanel);
+            if (showPlot.Value && this.Visible)
+              plotForm.Show();
+            break;
+          case 1:
+            plotForm.Controls.Clear();
+            plotForm.Hide();
+            splitContainer.Orientation = Orientation.Horizontal;
+            splitContainer.Panel2.Controls.Add(plotPanel);
+            splitContainer.Panel2Collapsed = !showPlot.Value;
+            break;
+          case 2:
+            plotForm.Controls.Clear();
+            plotForm.Hide();
+            splitContainer.Orientation = Orientation.Vertical;
+            splitContainer.Panel2.Controls.Add(plotPanel);
+            splitContainer.Panel2Collapsed = !showPlot.Value;
+            break;
+        }
+      };
+
 
       startupMenuItem.Visible = startupManager.IsAvailable;
       

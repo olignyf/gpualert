@@ -213,6 +213,7 @@ namespace OpenHardwareMonitor.Utilities {
       JSON += ", \"Min\": \"Min\"";
       JSON += ", \"Value\": \"Value\"";
       JSON += ", \"Max\": \"Max\"";
+      JSON += ", \"Alert\": \"Alert\"";
       JSON += ", \"ImageURL\": \"\"";
       JSON += "}";
 
@@ -249,23 +250,27 @@ namespace OpenHardwareMonitor.Utilities {
         JSON += ", \"Min\": \"" + ((SensorNode)n).Min + "\"";
         JSON += ", \"Value\": \"" + ((SensorNode)n).Value + "\"";
         JSON += ", \"Max\": \"" + ((SensorNode)n).Max + "\"";
+        JSON += ", \"Alert\": \"" + ((SensorNode)n).Alert + "\"";
         JSON += ", \"ImageURL\": \"images/transparent.png\"";
       } else if (n is HardwareNode) {
         JSON += ", \"Min\": \"\"";
         JSON += ", \"Value\": \"\"";
         JSON += ", \"Max\": \"\"";
+        JSON += ", \"Alert\": \"\"";
         JSON += ", \"ImageURL\": \"images_icon/" + 
           GetHardwareImageFile((HardwareNode)n) + "\"";
       } else if (n is TypeNode) {
         JSON += ", \"Min\": \"\"";
         JSON += ", \"Value\": \"\"";
         JSON += ", \"Max\": \"\"";
+        JSON += ", \"Alert\": \"\"";
         JSON += ", \"ImageURL\": \"images_icon/" + 
           GetTypeImageFile((TypeNode)n) + "\"";
       } else {
         JSON += ", \"Min\": \"\"";
         JSON += ", \"Value\": \"\"";
         JSON += ", \"Max\": \"\"";
+        JSON += ", \"Alert\": \"\"";
         JSON += ", \"ImageURL\": \"images_icon/computer.png\"";
       }
 

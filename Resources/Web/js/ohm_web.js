@@ -77,7 +77,7 @@ $(function(){
         clearInterval(viewModel.timer);
       }
 
-      viewModel.auto_refresh = ko.observable(false);
+      viewModel.auto_refresh = ko.observable(true);
       viewModel.toggleAuto = ko.dependentObservable(function() {
         if (viewModel.auto_refresh())
           viewModel.startAuto();

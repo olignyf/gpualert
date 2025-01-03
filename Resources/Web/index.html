@@ -36,26 +36,26 @@
   <body>
 
     <div class="header">
-
-      <span id="toolbar" class="ui-widget-header ui-corner-all">
+      <div id="toolbar" class="ui-widget-header ui-corner-all">
         <button id="refresh" data-bind="click: update">Refresh</button>
         <input type="checkbox" id="auto_refresh" data-bind="checked: auto_refresh"/><label for="auto_refresh">Auto Refresh</label>
         &nbsp;<div id="slider"></div>&nbsp;&nbsp;&nbsp;&nbsp;<span for="auto_refresh" id="lbl"></span>
-      </span>
+      </div>
     </div>
 
     <div class="main">
       <table data-bind="treeTable: flattened, treeOptions: { initialState: 'expanded', clickableNodeNames: true } ">
-        <thead><td>Sensor</td><td>Min</td><td>Value</td><td>Max</td>
-          <tbody data-bind="foreach: flattened">
-            <tr data-bind="attr: { 'id': 'node-' + id(), 'class': parent.id()?'child-of-node-' + parent.id():'' }">
-              <td data-bind="html: '<img src=' + ImageURL() + ' />&nbsp; ' + Text()"></td>
-              <td data-bind="text: Min"></td>
-              <td data-bind="text: Value"></td>
-              <td data-bind="text: Max"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </body>
+        <thead><tr><th>Sensor</th><th>Min</th><th>Value</th><th>Max</th><th>Alert</th></tr></thead>
+        <tbody data-bind="foreach: flattened">
+          <tr data-bind="attr: { 'id': 'node-' + id(), 'class': parent.id()?'child-of-node-' + parent.id():'' }">
+            <td data-bind="html: '<img src=' + ImageURL() + ' />&nbsp; ' + Text()"></td>
+            <td data-bind="text: Min"></td>
+            <td data-bind="text: Value"></td>
+            <td data-bind="text: Max"></td>
+            <td data-bind="text: Alert"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
   </html>

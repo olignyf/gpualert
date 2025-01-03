@@ -357,7 +357,7 @@ namespace OpenHardwareMonitor.GUI {
             this.valueMenuItem,
             this.minMenuItem,
             this.maxMenuItem,
-            this.maxMenuItem});
+            this.alertMenuItem});
       this.columnsMenuItem.Text = "Columns";
       // 
       // valueMenuItem

@@ -4,22 +4,20 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
  
-	Copyright (C) 2022 Francois Oligny-Lemieux <frank.quebec+git@gmail.com>
+	Copyright (C) 2022-2025 Francois Oligny-Lemieux <frank.quebec+git@gmail.com>
 
   Description: Add alert on min/max values
 
   Dev pointers:
-
-  List of Alerts is accessible at runtime in AlertWatcher's `private List<AlertConfig> list`
+    Alerts are saved (serialized) to the registry next to the other Hardwaremonitor PersistentSettings parameters.
+    List of Alerts is accessible at runtime via AlertWatcher's `private List<AlertConfig> list`.
 
 */
 
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using OpenHardwareMonitor.Hardware;
@@ -39,6 +37,7 @@ namespace OpenHardwareMonitor.GUI {
     public string Filename { get; set; }
     public string Arguments { get; set; }
     public string Process { get; set; }
+    public string SoundFile { get; set; }
 
     public AlertParameters() {
     }
@@ -50,12 +49,14 @@ namespace OpenHardwareMonitor.GUI {
       Filename = parameters.Filename;
       Arguments = parameters.Arguments;
       Process = parameters.Process;
+      SoundFile = parameters.SoundFile;
     }
   }
 
   public class AlertConfig : AlertParameters {
     public ISensor Sensor { get; set; }
     public DateTime LastTriggered { get; set; }
+    public int Triggered { get; set; } = 0;
   }
 
   public class AlertWatcher : IDisposable {
@@ -126,16 +127,19 @@ namespace OpenHardwareMonitor.GUI {
         try {
           using (StringReader textReader = new StringReader(value)) {
             AlertParameters existingConfig = (AlertParameters)xmlSerializer.Deserialize(textReader);
-            Add(sensor,
+            AddToList(sensor,
               existingConfig.Min,
               existingConfig.Max,
               existingConfig.Action, 
               existingConfig.Filename,
               existingConfig.Arguments,
-              existingConfig.Process);
+              existingConfig.Process,
+              existingConfig.SoundFile);
           }
         } catch (Exception e) {
           Console.WriteLine(e.ToString());
+          // Clear settings
+          settings.Remove(new Identifier(sensor.Identifier, PERSISTANT_KEY).ToString());
         }
       }
     }
@@ -191,11 +195,15 @@ namespace OpenHardwareMonitor.GUI {
         }
       }
 
+      // Alert triggered !
+      config.Triggered++;
 
-      if (triggered && config.Action == AlertParameters.ACTION.PLAY_SOUND) {
-        System.Media.SoundPlayer player = new System.Media.SoundPlayer(@config.Filename);
+      if (triggered && config.SoundFile != null && config.SoundFile != "") {
+        System.Media.SoundPlayer player = new System.Media.SoundPlayer(@config.SoundFile);
         player.Play();
-      } else if (triggered && config.Action == AlertParameters.ACTION.STOP_PROCESS) {
+      }
+
+      if (triggered && config.Action == AlertParameters.ACTION.STOP_PROCESS) {
         // turn off process
         TurnOffProcess(config.Process);
 
@@ -243,13 +251,33 @@ namespace OpenHardwareMonitor.GUI {
       return false;
     }
 
-    public void Add(ISensor sensor, int? min, int? max, string programStart, string arguments, string processStop) {
-      this.Add(sensor, min, max,
+    public void Add(ISensor sensor, NumericUpDown min, NumericUpDown max, string programStart, string arguments, string processStop, string audioFile) {
+      int? minDecimal = null, maxDecimal = null;
+      if (min.Text != "") {
+        minDecimal = (int?)min.Value;
+      }
+      if (max.Text != "") {
+        maxDecimal = (int?)max.Value;
+      }
+      this.AddAndSerialize(sensor, minDecimal, maxDecimal,
         programStart != null ?  AlertParameters.ACTION.START_PROGRAM :  AlertParameters.ACTION.STOP_PROCESS,
-        programStart, arguments, processStop);
+        programStart, arguments, processStop, audioFile);
     }
 
-    public void Add(ISensor sensor, int? min, int? max, AlertParameters.ACTION Action, string programStart, string arguments, string processStop) {
+    public void AddAndSerialize(ISensor sensor, int? min, int? max, AlertParameters.ACTION Action, string programStart, string arguments, string processStop, string audioFile) {
+      AlertConfig alertConfig = this.AddToList(sensor, min, max, Action, programStart, arguments, processStop, audioFile);
+    
+      string value = "";
+      AlertParameters toSerialize = new AlertParameters(alertConfig);
+      XmlSerializer xmlSerializer = new XmlSerializer(typeof(AlertParameters));
+      using (StringWriter textWriter = new StringWriter()) {
+        xmlSerializer.Serialize(textWriter, toSerialize);
+        value = textWriter.ToString();
+      }
+      settings.SetValue(new Identifier(sensor.Identifier, PERSISTANT_KEY).ToString(), value);
+    }
+
+    public AlertConfig AddToList(ISensor sensor, int? min, int? max, AlertParameters.ACTION Action, string programStart, string arguments, string processStop, string audioFile) {
       AlertConfig alertConfig = null;
       bool editMode = false;
       if (Contains(sensor, out alertConfig)) {
@@ -257,46 +285,40 @@ namespace OpenHardwareMonitor.GUI {
         if (alertConfig != null) {
           editMode = true;
           Remove(sensor);
-        } 
+        }
       }
 
       if (!editMode) {
         alertConfig = new AlertConfig();
       }
 
-        alertConfig.Sensor = sensor;
-        alertConfig.Min = min;
-        alertConfig.Max = max;
-        if (programStart != null) {
-          alertConfig.Action =  AlertParameters.ACTION.START_PROGRAM;
-          alertConfig.Filename = programStart;
-          alertConfig.Arguments = arguments;
-        } else {
-          alertConfig.Action =  AlertParameters.ACTION.STOP_PROCESS;
-          alertConfig.Process = processStop;
-        }
-        list.Add(alertConfig);
-        // Add info to Sensor thats it's on an alert
-        string alertText = null;
-        if (alertConfig.Min != null && alertConfig.Max != null && alertConfig.Min != -1 && alertConfig.Max != -1) {
-          alertText = " < " + alertConfig.Min + " / > " + alertConfig.Max;
-        } else if (alertConfig.Min != null && alertConfig.Min != -1) {
-          alertText = "< " + alertConfig.Min;
-        } else if (alertConfig.Max != null && alertConfig.Max != -1) {
-          alertText = "> " + alertConfig.Max;
-        }
-        sensor.Alert = alertText;
-        UpdateMainIconVisibilty();
-        string value = "";
+      alertConfig.Sensor = sensor;
+      alertConfig.Min = min;
+      alertConfig.Max = max;
+      alertConfig.SoundFile = audioFile;
+      if (programStart != null) {
+        alertConfig.Action = AlertParameters.ACTION.START_PROGRAM;
+        alertConfig.Filename = programStart;
+        alertConfig.Arguments = arguments;
+      } else {
+        alertConfig.Action = AlertParameters.ACTION.STOP_PROCESS;
+        alertConfig.Process = processStop;
+      }
+      list.Add(alertConfig);
+      // Add info to Sensor thats it's on an alert
+      string alertText = null;
+      if (alertConfig.Min != null && alertConfig.Max != null) {
+        alertText = " <" + alertConfig.Min + " or >" + alertConfig.Max;
+      } else if (alertConfig.Min != null) {
+        alertText = "< " + alertConfig.Min;
+      } else if (alertConfig.Max != null) {
+        alertText = "> " + alertConfig.Max;
+      }
+      alertText += " (" + alertConfig.Triggered + ")";
+      sensor.Alert = alertText;
+      UpdateMainIconVisibilty();
 
-        AlertParameters toSerialize = new AlertParameters(alertConfig);
-        XmlSerializer xmlSerializer = new XmlSerializer(typeof(AlertParameters));
-        using (StringWriter textWriter = new StringWriter()) {
-          xmlSerializer.Serialize(textWriter, toSerialize);
-          value = textWriter.ToString();
-        }
-        settings.SetValue(new Identifier(sensor.Identifier, PERSISTANT_KEY).ToString(), value);
-      
+      return alertConfig;
     }
 
     public void Remove(ISensor sensor) {

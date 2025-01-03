@@ -45,9 +45,12 @@ namespace OpenHardwareMonitor.GUI {
 
     private UserOption showHiddenSensors;
     private UserOption showPlot;
+    // Columns toggles BEGINs
     private UserOption showValue;
     private UserOption showMin;
     private UserOption showMax;
+    private UserOption showAlert;
+    // Columns toggles ENDs
     private UserOption startMinimized;
     private UserOption minimizeToTray;
     private UserOption minimizeOnClose;
@@ -210,8 +213,13 @@ namespace OpenHardwareMonitor.GUI {
       };
 
       showMax = new UserOption("maxMenuItem", true, maxMenuItem, settings);
-      showMax.Changed += delegate(object sender, EventArgs e) {
+      showMax.Changed += delegate (object sender, EventArgs e) {
         treeView.Columns[3].IsVisible = showMax.Value;
+      };
+
+      showAlert = new UserOption("alertMenuItem", true, alertMenuItem, settings);
+      showAlert.Changed += delegate (object sender, EventArgs e) {
+        treeView.Columns[4].IsVisible = showAlert.Value;
       };
 
       startMinimized = new UserOption("startMinMenuItem", false,

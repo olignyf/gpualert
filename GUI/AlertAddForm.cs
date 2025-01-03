@@ -41,10 +41,11 @@ namespace OpenHardwareMonitor.GUI {
         MessageBox.Show("Minimum value must be below Maximum", caption, buttons);
         return;
       }
-      parent.AlertWatcher.Add(m_sensor, (int)minUpDn.Value, (int)maxUpDn.Value,
+      parent.AlertWatcher.Add(m_sensor, minUpDn, maxUpDn,
         turnOnRadio.Checked ? programFilename.Text : null,
         turnOnRadio.Checked ? programArguments.Text : null,
-        turnOffRadio.Checked ? processArguments.Text : null
+        turnOffRadio.Checked ? processArguments.Text : null,
+        playSoundCheckbox.Checked ? textBoxSoundFile.Text : null
       );
       this.Close();
     }
@@ -54,13 +55,17 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     private void PortForm_Load(object sender, EventArgs e) {
-      minUpDn.Value = -1;
+      minUpDn.Text = ""; // empty string == no minimum
       maxUpDn.Value = (int)m_sensor.Value + 20;
 
       if (m_alertConfig != null) {
-        if (m_alertConfig.Action == AlertParameters.ACTION.PLAY_SOUND) {
+        if (m_alertConfig.SoundFile != null && m_alertConfig.SoundFile != "") {
+          textBoxSoundFile.Text = m_alertConfig.SoundFile;
+          textBoxSoundFile.Enabled = true;
+          playSoundCheckbox.Checked = true;
+        }
 
-        } else if (m_alertConfig.Action == AlertParameters.ACTION.START_PROGRAM) {
+        if (m_alertConfig.Action == AlertParameters.ACTION.START_PROGRAM) {
           turnOnRadio.Checked = true;
           programArguments.Text = m_alertConfig.Arguments;
           programFilename.Text = m_alertConfig.Filename;
@@ -103,9 +108,25 @@ namespace OpenHardwareMonitor.GUI {
       }
     }
 
-    private void button3_Click(object sender, EventArgs e) {
-      
+    private void playSound_Click(object sender, System.EventArgs e) {
+      if (playSoundCheckbox.Checked) {
+        textBoxSoundFile.Enabled = true;
+        buttonSelectSoundFile.Enabled = true;
+      }
+      else {
+        textBoxSoundFile.Enabled = false;
+        buttonSelectSoundFile.Enabled = false;
+      }
     }
+
+    // Sound file
+    private void buttonSelectSoundFile_Click(object sender, EventArgs e) {
+      openFileDialog1.Filter = "Audio Files|*.wav;*.mp3|All Files (*.*)|*.*";
+      openFileDialog1.ShowDialog();
+      string filename = openFileDialog1.FileName;
+      textBoxSoundFile.Text = filename;
+    }
+
 
     private void buttonRemoveAlert_Click(object sender, EventArgs e) {
       parent.AlertWatcher.Remove(m_sensor);

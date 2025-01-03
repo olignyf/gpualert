@@ -40,10 +40,10 @@
 			this.processArguments = new System.Windows.Forms.TextBox();
 			this.test = new System.Windows.Forms.Button();
 			this.label5 = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.button3 = new System.Windows.Forms.Button();
+			this.textBoxSoundFile = new System.Windows.Forms.TextBox();
+			this.buttonSelectSoundFile = new System.Windows.Forms.Button();
 			this.button4 = new System.Windows.Forms.Button();
-			this.playSound = new System.Windows.Forms.CheckBox();
+			this.playSoundCheckbox = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.minUpDn)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.maxUpDn)).BeginInit();
 			this.SuspendLayout();
@@ -231,26 +231,26 @@
 			this.label5.TabIndex = 20;
 			this.label5.Text = "a simple name like \"Photoshop\" or \"Chrome\" ";
 			// 
-			// textBox1
+			// textBoxSoundFile
 			// 
-			this.textBox1.Enabled = false;
-			this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBox1.Location = new System.Drawing.Point(243, 280);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(325, 22);
-			this.textBox1.TabIndex = 24;
+			this.textBoxSoundFile.Enabled = false;
+			this.textBoxSoundFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.textBoxSoundFile.Location = new System.Drawing.Point(243, 280);
+			this.textBoxSoundFile.Name = "textBoxSoundFile";
+			this.textBoxSoundFile.Size = new System.Drawing.Size(325, 22);
+			this.textBoxSoundFile.TabIndex = 24;
 			// 
-			// button3
+			// buttonSelectSoundFile
 			// 
-			this.button3.Enabled = false;
-			this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button3.Location = new System.Drawing.Point(571, 280);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(134, 23);
-			this.button3.TabIndex = 23;
-			this.button3.Text = "Select File";
-			this.button3.UseVisualStyleBackColor = true;
-			this.button3.Click += new System.EventHandler(this.button3_Click); // FIXME not implemented
+			this.buttonSelectSoundFile.Enabled = false;
+			this.buttonSelectSoundFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.buttonSelectSoundFile.Location = new System.Drawing.Point(571, 280);
+			this.buttonSelectSoundFile.Name = "buttonSelectSoundFile";
+			this.buttonSelectSoundFile.Size = new System.Drawing.Size(134, 23);
+			this.buttonSelectSoundFile.TabIndex = 23;
+			this.buttonSelectSoundFile.Text = "Select File";
+			this.buttonSelectSoundFile.UseVisualStyleBackColor = true;
+			this.buttonSelectSoundFile.Click += new System.EventHandler(this.buttonSelectSoundFile_Click);
 			// 
 			// button4
 			// 
@@ -262,18 +262,19 @@
 			this.button4.TabIndex = 25;
 			this.button4.Text = "Remove Alert";
 			this.button4.UseVisualStyleBackColor = true;
-      this.button4.Click += new System.EventHandler(this.buttonRemoveAlert_Click);
-      // 
-      // playSound
-      // 
-      this.playSound.AutoSize = true;
-			this.playSound.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.playSound.Location = new System.Drawing.Point(121, 283);
-			this.playSound.Name = "playSound";
-			this.playSound.Size = new System.Drawing.Size(94, 20);
-			this.playSound.TabIndex = 26;
-			this.playSound.Text = "Play sound";
-			this.playSound.UseVisualStyleBackColor = true;
+			this.button4.Click += new System.EventHandler(this.buttonRemoveAlert_Click);
+			// 
+			// playSoundCheckbox
+			// 
+			this.playSoundCheckbox.AutoSize = true;
+			this.playSoundCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.playSoundCheckbox.Location = new System.Drawing.Point(121, 283);
+			this.playSoundCheckbox.Name = "playSoundCheckbox";
+			this.playSoundCheckbox.Size = new System.Drawing.Size(94, 20);
+			this.playSoundCheckbox.TabIndex = 26;
+			this.playSoundCheckbox.Text = "Play sound";
+			this.playSoundCheckbox.UseVisualStyleBackColor = true;
+			this.playSoundCheckbox.Click += new System.EventHandler(this.playSound_Click);
 			// 
 			// AlertAddForm
 			// 
@@ -281,10 +282,10 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.portCancelButton;
 			this.ClientSize = new System.Drawing.Size(754, 438);
-			this.Controls.Add(this.playSound);
+			this.Controls.Add(this.playSoundCheckbox);
 			this.Controls.Add(this.button4);
-			this.Controls.Add(this.textBox1);
-			this.Controls.Add(this.button3);
+			this.Controls.Add(this.textBoxSoundFile);
+			this.Controls.Add(this.buttonSelectSoundFile);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.test);
 			this.Controls.Add(this.processArguments);
@@ -314,7 +315,6 @@
 			this.PerformLayout();
 
     }
-
     #endregion
 
     private System.Windows.Forms.Button portOKButton;
@@ -334,9 +334,9 @@
     private System.Windows.Forms.TextBox processArguments;
     private System.Windows.Forms.Button test;
     private System.Windows.Forms.Label label5;
-    private System.Windows.Forms.TextBox textBox1;
-    private System.Windows.Forms.Button button3;
+    private System.Windows.Forms.TextBox textBoxSoundFile;
+    private System.Windows.Forms.Button buttonSelectSoundFile;
     private System.Windows.Forms.Button button4;
-    private System.Windows.Forms.CheckBox playSound;
+    private System.Windows.Forms.CheckBox playSoundCheckbox;
   }
 }

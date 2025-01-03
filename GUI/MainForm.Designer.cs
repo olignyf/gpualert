@@ -87,6 +87,9 @@ namespace OpenHardwareMonitor.GUI {
       this.plotWindowMenuItem = new System.Windows.Forms.MenuItem();
       this.plotBottomMenuItem = new System.Windows.Forms.MenuItem();
       this.plotRightMenuItem = new System.Windows.Forms.MenuItem();
+      this.alertThresholdMenuItem = new System.Windows.Forms.MenuItem();
+      this.alertThreshold1min = new System.Windows.Forms.MenuItem();
+      this.alertThreshold5min = new System.Windows.Forms.MenuItem();
       this.webMenuItemSeparator = new System.Windows.Forms.MenuItem();
       this.webMenuItem = new System.Windows.Forms.MenuItem();
       this.runWebServerMenuItem = new System.Windows.Forms.MenuItem();
@@ -391,6 +394,7 @@ namespace OpenHardwareMonitor.GUI {
             this.separatorMenuItem,
             this.temperatureUnitsMenuItem,
             this.plotLocationMenuItem,
+            this.alertThresholdMenuItem,
             this.logSeparatorMenuItem,
             this.logSensorsMenuItem,
             this.loggingIntervalMenuItem,
@@ -471,15 +475,37 @@ namespace OpenHardwareMonitor.GUI {
       this.plotRightMenuItem.Index = 2;
       this.plotRightMenuItem.RadioCheck = true;
       this.plotRightMenuItem.Text = "Right";
+
+      // 
+      // alertThresholdMenuItem
+      // 
+      this.alertThresholdMenuItem.Index = 7;
+      this.alertThresholdMenuItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.alertThreshold1min,
+            this.alertThreshold5min,});
+      this.alertThresholdMenuItem.Text = "Alert Threshold";
+      // 
+      // alertThreshold1min
+      // 
+      this.alertThreshold1min.Index = 0;
+      this.alertThreshold1min.RadioCheck = true;
+      this.alertThreshold1min.Text = "1 min";
+      // 
+      // alertThreshold5min
+      // 
+      this.alertThreshold5min.Index = 1;
+      this.alertThreshold5min.RadioCheck = true;
+      this.alertThreshold5min.Text = "5 min";
+    
       // 
       // webMenuItemSeparator
       // 
-      this.webMenuItemSeparator.Index = 10;
+      this.webMenuItemSeparator.Index = 11;
       this.webMenuItemSeparator.Text = "-";
       // 
       // webMenuItem
       // 
-      this.webMenuItem.Index = 11;
+      this.webMenuItem.Index = 12;
       this.webMenuItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.runWebServerMenuItem,
             this.serverPortMenuItem});
@@ -498,7 +524,7 @@ namespace OpenHardwareMonitor.GUI {
       // 
       // logSensorsMenuItem
       // 
-      this.logSensorsMenuItem.Index = 8;
+      this.logSensorsMenuItem.Index = 10;
       this.logSensorsMenuItem.Text = "Log Sensors";
       // 
       // helpMenuItem
@@ -586,7 +612,7 @@ namespace OpenHardwareMonitor.GUI {
       // 
       // logSeparatorMenuItem
       // 
-      this.logSeparatorMenuItem.Index = 7;
+      this.logSeparatorMenuItem.Index = 8;
       this.logSeparatorMenuItem.Text = "-";
       // 
       // loggingIntervalMenuItem
@@ -763,7 +789,10 @@ namespace OpenHardwareMonitor.GUI {
     private System.Windows.Forms.MenuItem plotWindowMenuItem;
     private System.Windows.Forms.MenuItem plotBottomMenuItem;
     private System.Windows.Forms.MenuItem plotRightMenuItem;
-		private System.Windows.Forms.MenuItem webMenuItem;
+    private System.Windows.Forms.MenuItem alertThresholdMenuItem;
+    private System.Windows.Forms.MenuItem alertThreshold1min;
+    private System.Windows.Forms.MenuItem alertThreshold5min;
+    private System.Windows.Forms.MenuItem webMenuItem;
     private System.Windows.Forms.MenuItem runWebServerMenuItem;
     private System.Windows.Forms.MenuItem serverPortMenuItem;
     private System.Windows.Forms.MenuItem menuItem5;

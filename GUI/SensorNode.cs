@@ -121,6 +121,7 @@ namespace OpenHardwareMonitor.GUI {
       get { return sensor; }
     }
 
+    // These are to populate the main Grid view table
     public string Value {
       get { return ValueToString(sensor.Value); }
     }
@@ -135,7 +136,12 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     public string Alert {
-      get { return sensor.Alert; }
+      get {
+        if (sensor.Triggered > 0)
+          return sensor.Alert + " ("+sensor.Triggered+")";
+        else
+          return sensor.Alert;
+      }
     }
 
     public override bool Equals(System.Object obj) {

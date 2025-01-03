@@ -4,7 +4,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
  
-	Copyright (C) 2022 Francois Oligny-Lemieux <frank.quebec+git@gmail.com>
+	Copyright (C) 2022-2025 Francois Oligny-Lemieux <frank.quebec+git@gmail.com>
 
 */
 
@@ -59,6 +59,11 @@ namespace OpenHardwareMonitor.GUI {
       maxUpDn.Value = (int)m_sensor.Value + 20;
 
       if (m_alertConfig != null) {
+        if (m_alertConfig.Min != null)
+          minUpDn.Value = m_alertConfig.Min.Value;
+        if (m_alertConfig.Max != null)
+          maxUpDn.Value = m_alertConfig.Max.Value;
+
         if (m_alertConfig.SoundFile != null && m_alertConfig.SoundFile != "") {
           textBoxSoundFile.Text = m_alertConfig.SoundFile;
           textBoxSoundFile.Enabled = true;

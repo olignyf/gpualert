@@ -60,7 +60,10 @@ namespace OpenHardwareMonitor.Hardware {
     float? Value { get; }
     float? Min { get; }
     float? Max { get; }
-    string Alert { get; set; }
+
+    // Alert
+    string Alert { get; set; } // Alert description
+    int Triggered { get; set; } // Alert triggered count
 
     void ResetMin();
     void ResetMax();

@@ -30,6 +30,7 @@ namespace OpenHardwareMonitor.Hardware {
     private float? minValue;
     private float? maxValue;
     private string alertValue = null;
+    private int alertTriggerCount = 0;
     private readonly RingCollection<SensorValue> 
       values = new RingCollection<SensorValue>();
     private readonly ISettings settings;
@@ -205,6 +206,7 @@ namespace OpenHardwareMonitor.Hardware {
     public float? Min { get { return minValue; } }
     public float? Max { get { return maxValue; } }
     public string Alert { get { return alertValue; } set { alertValue = value; } }
+    public int Triggered { get { return alertTriggerCount; } set { alertTriggerCount = value; } }
 
     public void ResetMin() {
       minValue = null;

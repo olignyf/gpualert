@@ -29,7 +29,6 @@ namespace OpenHardwareMonitor.GUI {
     public enum ACTION {
       START_PROGRAM = 1,
       STOP_PROCESS,
-      PLAY_SOUND
     }
     public int? Min { get; set; }
     public int? Max { get; set; }
@@ -195,19 +194,22 @@ namespace OpenHardwareMonitor.GUI {
         }
       }
 
-      // Alert triggered !
-      config.Triggered++;
+      if (!triggered) {
+        return;
+      }
 
-      if (triggered && config.SoundFile != null && config.SoundFile != "") {
+      // Alert triggered !
+      config.Sensor.Triggered = ++config.Triggered;
+
+      if (config.SoundFile != null && config.SoundFile != "") {
         System.Media.SoundPlayer player = new System.Media.SoundPlayer(@config.SoundFile);
         player.Play();
       }
 
-      if (triggered && config.Action == AlertParameters.ACTION.STOP_PROCESS) {
+      if (config.Action == AlertParameters.ACTION.STOP_PROCESS) {
         // turn off process
         TurnOffProcess(config.Process);
-
-      } else if (triggered && config.Action == AlertParameters.ACTION.START_PROGRAM) {
+      } else if (config.Action == AlertParameters.ACTION.START_PROGRAM) {
         // launch program
         ProcessStartInfo startInfo = new ProcessStartInfo(config.Filename);
         startInfo.Arguments = config.Arguments;
@@ -314,7 +316,9 @@ namespace OpenHardwareMonitor.GUI {
       } else if (alertConfig.Max != null) {
         alertText = "> " + alertConfig.Max;
       }
-      alertText += " (" + alertConfig.Triggered + ")";
+      if (alertConfig.Triggered > 0) {
+        alertText += " (" + alertConfig.Triggered + ")";
+      }
       sensor.Alert = alertText;
       UpdateMainIconVisibilty();
 

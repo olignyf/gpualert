@@ -26,6 +26,7 @@ namespace OpenHardwareMonitor.WMI {
     public float Min { get; private set; }
     public float Max { get; private set; }
     public string Alert { get; private set; }
+    public int AlertTriggered { get; private set; }
     public int Index { get; private set; }
 
     #endregion
@@ -40,18 +41,24 @@ namespace OpenHardwareMonitor.WMI {
 
       this.sensor = sensor;
     }
-    
+
+    //TODO: Document what is the purpuse of this
     public void Update() {
       Value = (sensor.Value != null) ? (float)sensor.Value : 0;
-
+      
       if (sensor.Min != null)
         Min = (float)sensor.Min;
 
       if (sensor.Max != null)
         Max = (float)sensor.Max;
 
-      if (sensor.Alert != Alert) {
+      Max = 1;
+      if (sensor.Alert != Alert || sensor.Triggered != AlertTriggered) {
         Alert = sensor.Alert;
+        AlertTriggered = sensor.Triggered;
+        if (sensor.Triggered > 0) {
+          Alert = Alert + " (" + sensor.Triggered + ")";
+        }
       }
 
     }

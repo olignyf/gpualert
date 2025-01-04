@@ -353,45 +353,6 @@ namespace OpenHardwareMonitor.GUI {
         settings.SetValue("alertThreshold", minutes);
       };
 
-
-        showPlot.Changed += delegate (object sender, EventArgs e) {
-        if (plotLocation.Value == 0) {
-          if (showPlot.Value && this.Visible)
-            plotForm.Show();
-          else
-            plotForm.Hide();
-        } else {
-          splitContainer.Panel2Collapsed = !showPlot.Value;
-        }
-        treeView.Invalidate();
-      };
-      plotLocation.Changed += delegate (object sender, EventArgs e) {
-        switch (plotLocation.Value) {
-          case 0:
-            splitContainer.Panel2.Controls.Clear();
-            splitContainer.Panel2Collapsed = true;
-            plotForm.Controls.Add(plotPanel);
-            if (showPlot.Value && this.Visible)
-              plotForm.Show();
-            break;
-          case 1:
-            plotForm.Controls.Clear();
-            plotForm.Hide();
-            splitContainer.Orientation = Orientation.Horizontal;
-            splitContainer.Panel2.Controls.Add(plotPanel);
-            splitContainer.Panel2Collapsed = !showPlot.Value;
-            break;
-          case 2:
-            plotForm.Controls.Clear();
-            plotForm.Hide();
-            splitContainer.Orientation = Orientation.Vertical;
-            splitContainer.Panel2.Controls.Add(plotPanel);
-            splitContainer.Panel2Collapsed = !showPlot.Value;
-            break;
-        }
-      };
-
-
       startupMenuItem.Visible = startupManager.IsAvailable;
       
       if (startMinMenuItem.Checked) {

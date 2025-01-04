@@ -63,8 +63,6 @@ namespace OpenHardwareMonitor.GUI {
     private PersistentSettings settings;
     private UnitManager unitManager;
     private List<AlertConfig> list = new List<AlertConfig>();
-    private bool mainIconEnabled = false;
-    private NotifyIconAdv mainIcon;
 
     private string PERSISTANT_KEY = "alertWatcher";
 
@@ -75,28 +73,7 @@ namespace OpenHardwareMonitor.GUI {
       this.settings = settings;
       this.unitManager = unitManager;
       computer.HardwareAdded += new HardwareEventHandler(HardwareAdded);
-      computer.HardwareRemoved += new HardwareEventHandler(HardwareRemoved);
-
-      this.mainIcon = new NotifyIconAdv();
-
-      ContextMenu contextMenu = new ContextMenu();
-      MenuItem hideShowItem = new MenuItem("Hide/Show");
-      hideShowItem.Click += delegate(object obj, EventArgs args) {
-        SendHideShowCommand();
-      };
-      contextMenu.MenuItems.Add(hideShowItem);
-      contextMenu.MenuItems.Add(new MenuItem("-"));      
-      MenuItem exitItem = new MenuItem("Exit");
-      exitItem.Click += delegate(object obj, EventArgs args) {
-        SendExitCommand();
-      };
-      contextMenu.MenuItems.Add(exitItem);
-      this.mainIcon.ContextMenu = contextMenu;
-      this.mainIcon.DoubleClick += delegate(object obj, EventArgs args) {
-        SendHideShowCommand();
-      };
-      this.mainIcon.Icon = EmbeddedResources.GetIcon("smallicon.ico");
-      this.mainIcon.Text = "Open Hardware Monitor";
+      computer.HardwareRemoved += new HardwareEventHandler(HardwareRemoved);    
     }
 
     private void HardwareRemoved(IHardware hardware) {
@@ -153,7 +130,6 @@ namespace OpenHardwareMonitor.GUI {
       foreach (AlertConfig config in list) {
         // cleanup here if needed config.xyz.Dispose();
       }
-      mainIcon.Dispose();
     }
 
     private void AnalyzeSensor(AlertConfig config) {
@@ -320,7 +296,6 @@ namespace OpenHardwareMonitor.GUI {
         alertText = "> " + alertConfig.Max;
       }
       sensor.AlertSummary = alertText;
-      UpdateMainIconVisibilty();
 
       return alertConfig;
     }
@@ -356,22 +331,5 @@ namespace OpenHardwareMonitor.GUI {
         ExitCommand(this, null);
     }
 
-    private void UpdateMainIconVisibilty() {
-      if (mainIconEnabled) {
-        mainIcon.Visible = list.Count == 0;
-      } else {
-        mainIcon.Visible = false;
-      }
-    }
-
-    public bool IsMainIconEnabled {
-      get { return mainIconEnabled; }
-      set {
-        if (mainIconEnabled != value) {
-          mainIconEnabled = value;
-          UpdateMainIconVisibilty();
-        }
-      }
-    }
   }
 }

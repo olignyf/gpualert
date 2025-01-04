@@ -1,1 +1,0 @@
-file:///c:\temp\shoot-to-thrill.mp3 --qt-start-minimized --play-and-exit

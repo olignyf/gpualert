@@ -63,6 +63,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
@@ -76,6 +77,12 @@
     <Compile Include="GUI\NotifyIconAdv.cs" />
     <Compile Include="GUI\PlotPanel.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\AlertAddEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\AlertAddEditForm.Designer.cs">
+      <DependentUpon>AlertAddEditForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\PortForm.cs">
       <SubType>Form</SubType>
@@ -108,6 +115,7 @@
     <Compile Include="GUI\SplitContainerAdv.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GUI\AlertWatcher.cs" />
     <Compile Include="GUI\SystemTray.cs" />
     <Compile Include="GUI\StartupManager.cs" />
     <Compile Include="GUI\TaskScheduler.cs" />
@@ -151,6 +159,9 @@
     <EmbeddedResource Include="GUI\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\AlertAddEditForm.resx">
+      <DependentUpon>AlertAddEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\PortForm.resx">
       <DependentUpon>PortForm.cs</DependentUpon>

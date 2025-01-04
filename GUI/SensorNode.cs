@@ -121,16 +121,27 @@ namespace OpenHardwareMonitor.GUI {
       get { return sensor; }
     }
 
+    // These are to populate the main Grid view table
     public string Value {
       get { return ValueToString(sensor.Value); }
     }
 
     public string Min {
-      get { return ValueToString(sensor.Min); }
+      get
+        { return ValueToString(sensor.Min); }
     }
 
     public string Max {
       get { return ValueToString(sensor.Max); }
+    }
+
+    public string Alert {
+      get {
+        if (sensor.AlertTriggeredCount > 0)
+          return sensor.AlertSummary + " ("+sensor.AlertTriggeredCount+")";
+        else
+          return sensor.AlertSummary;
+      }
     }
 
     public override bool Equals(System.Object obj) {

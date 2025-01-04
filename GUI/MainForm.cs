@@ -35,7 +35,8 @@ namespace OpenHardwareMonitor.GUI {
     private IDictionary<ISensor, Color> sensorPlotColors = 
       new Dictionary<ISensor, Color>();
     private Color[] plotColorPalette;
-    private SystemTray systemTray;    
+    private AlertWatcher alertWatcher;
+    private SystemTray systemTray;
     private StartupManager startupManager = new StartupManager();
     private UpdateVisitor updateVisitor = new UpdateVisitor();
     private SensorGadget gadget;
@@ -44,9 +45,12 @@ namespace OpenHardwareMonitor.GUI {
 
     private UserOption showHiddenSensors;
     private UserOption showPlot;
+    // Columns toggles BEGINs
     private UserOption showValue;
     private UserOption showMin;
     private UserOption showMax;
+    private UserOption showAlert;
+    // Columns toggles ENDs
     private UserOption startMinimized;
     private UserOption minimizeToTray;
     private UserOption minimizeOnClose;
@@ -69,6 +73,8 @@ namespace OpenHardwareMonitor.GUI {
     private UserOption logSensors;
     private UserRadioGroup loggingInterval;
     private Logger logger;
+    
+    private UserRadioGroup alertThreshold;
 
     private bool selectionDragging = false;
 
@@ -110,12 +116,14 @@ namespace OpenHardwareMonitor.GUI {
       nodeTextBoxValue.DrawText += nodeTextBoxText_DrawText;
       nodeTextBoxMin.DrawText += nodeTextBoxText_DrawText;
       nodeTextBoxMax.DrawText += nodeTextBoxText_DrawText;
+      nodeTextBoxAlert.DrawText += nodeTextBoxText_DrawText;
       nodeTextBoxText.EditorShowing += nodeTextBoxText_EditorShowing;
 
       this.sensor.Width = DpiHelper.LogicalToDeviceUnits(250);
       this.value.Width = DpiHelper.LogicalToDeviceUnits(100);
       this.min.Width = DpiHelper.LogicalToDeviceUnits(100);
       this.max.Width = DpiHelper.LogicalToDeviceUnits(100);
+      this.alert.Width = DpiHelper.LogicalToDeviceUnits(100);
 
       foreach (TreeColumn column in treeView.Columns) 
         column.Width = Math.Max(DpiHelper.LogicalToDeviceUnits(20), Math.Min(
@@ -135,6 +143,8 @@ namespace OpenHardwareMonitor.GUI {
       systemTray = new SystemTray(computer, settings, unitManager);
       systemTray.HideShowCommand += hideShowClick;
       systemTray.ExitCommand += exitClick;
+
+      alertWatcher = new AlertWatcher(computer, settings, unitManager);
 
       if (Hardware.OperatingSystem.IsUnix) { // Unix
         treeView.RowHeight = Math.Max(treeView.RowHeight,
@@ -203,8 +213,13 @@ namespace OpenHardwareMonitor.GUI {
       };
 
       showMax = new UserOption("maxMenuItem", true, maxMenuItem, settings);
-      showMax.Changed += delegate(object sender, EventArgs e) {
+      showMax.Changed += delegate (object sender, EventArgs e) {
         treeView.Columns[3].IsVisible = showMax.Value;
+      };
+
+      showAlert = new UserOption("alertMenuItem", true, alertMenuItem, settings);
+      showAlert.Changed += delegate (object sender, EventArgs e) {
+        treeView.Columns[4].IsVisible = showAlert.Value;
       };
 
       startMinimized = new UserOption("startMinMenuItem", false,
@@ -321,6 +336,22 @@ namespace OpenHardwareMonitor.GUI {
       };
 
       InitializePlotForm();
+
+      alertThreshold = new UserRadioGroup("alertThreshold", 1,
+        new[] {alertThreshold1min, alertThreshold5min, alertThreshold10min },
+        settings);
+      alertThreshold.Changed += delegate (object sender, EventArgs e) {
+        // index to value
+        int minutes = 5;
+        if (alertThreshold.Value == 0) {
+          minutes = 1;
+        } else if (alertThreshold.Value == 1) {
+          minutes = 5;
+        } else if (alertThreshold.Value == 2) {
+          minutes = 10;
+        }
+        settings.SetValue("alertThreshold", minutes);
+      };
 
       startupMenuItem.Visible = startupManager.IsAvailable;
       
@@ -489,7 +520,7 @@ namespace OpenHardwareMonitor.GUI {
       PlotSelectionChanged(this, null);
     }
 
-    private void nodeTextBoxText_DrawText(object sender, DrawEventArgs e) {       
+    private void nodeTextBoxText_DrawText(object sender, DrawEventArgs e) {
       Node node = e.Node.Tag as Node;
       if (node != null) {
         Color color;
@@ -578,6 +609,7 @@ namespace OpenHardwareMonitor.GUI {
       treeView.Invalidate();
       plotPanel.InvalidatePlot();
       systemTray.Redraw();
+      alertWatcher.Redraw();
       if (gadget != null)
         gadget.Redraw();
 
@@ -661,6 +693,7 @@ namespace OpenHardwareMonitor.GUI {
       if (runWebServer.Value)
           server.Quit();
       systemTray.Dispose();
+      alertWatcher.Dispose();
     }
 
     private void aboutMenuItem_Click(object sender, EventArgs e) {
@@ -728,9 +761,26 @@ namespace OpenHardwareMonitor.GUI {
           }
           treeContextMenu.MenuItems.Add(new MenuItem("-"));
           {
+            MenuItem item = new MenuItem("Add Alert");
+            AlertConfig alertConfig;
+            item.Checked = alertWatcher.Contains(node.Sensor, out alertConfig);
+            if (item.Checked) {
+              item.Text = "Edit Alert (min:"+alertConfig.Min+ ", max:"+alertConfig.Max+")";
+            }
+            item.Click += delegate (object obj, EventArgs args) {
+              if (item.Checked)
+                new AlertAddEditForm(this, node.Sensor, alertConfig).ShowDialog();
+                //alertWatcher.Remove(node.Sensor);
+              else {
+                new AlertAddEditForm(this, node.Sensor).ShowDialog();
+              }
+            };
+            treeContextMenu.MenuItems.Add(item);
+          }
+          {
             MenuItem item = new MenuItem("Show in Tray");
             item.Checked = systemTray.Contains(node.Sensor);
-            item.Click += delegate(object obj, EventArgs args) {
+            item.Click += delegate (object obj, EventArgs args) {
               if (item.Checked)
                 systemTray.Remove(node.Sensor);
               else
@@ -928,6 +978,10 @@ namespace OpenHardwareMonitor.GUI {
 
     public HttpServer Server {
       get { return server; }
+    }
+
+    public AlertWatcher AlertWatcher {
+      get { return alertWatcher; }
     }
 
   }

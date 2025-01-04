@@ -137,10 +137,10 @@ namespace OpenHardwareMonitor.GUI {
 
     public string Alert {
       get {
-        if (sensor.Triggered > 0)
-          return sensor.Alert + " ("+sensor.Triggered+")";
+        if (sensor.AlertTriggeredCount > 0)
+          return sensor.AlertSummary + " ("+sensor.AlertTriggeredCount+")";
         else
-          return sensor.Alert;
+          return sensor.AlertSummary;
       }
     }
 

@@ -202,7 +202,7 @@ namespace OpenHardwareMonitor.GUI {
       }
 
       // Alert triggered !
-      config.Sensor.Triggered = ++config.Triggered;
+      config.Sensor.AlertTriggeredCount = ++config.Triggered;
 
       if (config.SoundFile != null && config.SoundFile != "") {
         System.Media.SoundPlayer player = new System.Media.SoundPlayer(@config.SoundFile);
@@ -319,10 +319,7 @@ namespace OpenHardwareMonitor.GUI {
       } else if (alertConfig.Max != null) {
         alertText = "> " + alertConfig.Max;
       }
-      if (alertConfig.Triggered > 0) {
-        alertText += " (" + alertConfig.Triggered + ")";
-      }
-      sensor.Alert = alertText;
+      sensor.AlertSummary = alertText;
       UpdateMainIconVisibilty();
 
       return alertConfig;
@@ -342,7 +339,7 @@ namespace OpenHardwareMonitor.GUI {
           instance = config;
       list.Remove(instance);
 
-      sensor.Alert = null;
+      sensor.AlertSummary = null;
     }
 
     public event EventHandler HideShowCommand;

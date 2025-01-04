@@ -35,7 +35,6 @@ namespace OpenHardwareMonitor.GUI {
 
       InitializeComponent();
 
-
       if (m_alertConfig != null)
         this.Text = "Edit Alert" ;
     }
@@ -62,9 +61,10 @@ namespace OpenHardwareMonitor.GUI {
 
     private void PortForm_Load(object sender, EventArgs e) {
       minUpDn.Text = ""; // empty string == no minimum
-      maxUpDn.Value = (int)m_sensor.Value + 20;
+      maxUpDn.Value = (int)m_sensor.Value + 20; // initialize the form suggesting a +20 margin above current value
 
       if (m_alertConfig != null) {
+        // we are in Edit mode, fill up form with existing values
         if (m_alertConfig.Min != null)
           minUpDn.Value = m_alertConfig.Min.Value;
         if (m_alertConfig.Max != null)
@@ -88,7 +88,7 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     private void turnOnRadio_CheckedChanged(object sender, EventArgs e) {
-      button1.Enabled = true;
+      buttonSelectProgram.Enabled = true;
       programFilename.Enabled = true;
       programArguments.Enabled = true;
       processArguments.Enabled = false;
@@ -102,13 +102,20 @@ namespace OpenHardwareMonitor.GUI {
     }
     
     private void turnOffRadio_CheckedChanged(object sender, EventArgs e) {
-      button1.Enabled = false;
+      buttonSelectProgram.Enabled = false;
       programFilename.Enabled = false;
       programArguments.Enabled = false;
       processArguments.Enabled = true;
     }
 
+    // Test Action button
     private void test_Click(object sender, EventArgs e) {
+
+      if (playSoundCheckbox.Checked == true && textBoxSoundFile.Text != "") {
+        System.Media.SoundPlayer player = new System.Media.SoundPlayer(textBoxSoundFile.Text);
+        player.Play();
+      }
+
       if (turnOnRadio.Checked) {
         // test turn on
         ProcessStartInfo startInfo = new ProcessStartInfo(programFilename.Text);
@@ -132,7 +139,7 @@ namespace OpenHardwareMonitor.GUI {
 
     // Sound file
     private void buttonSelectSoundFile_Click(object sender, EventArgs e) {
-      openFileDialog1.Filter = "Audio Files|*.wav;*.mp3|All Files (*.*)|*.*";
+      openFileDialog1.Filter = "Audio Files|*.wav|All Files (*.*)|*.*";
       openFileDialog1.ShowDialog();
       string filename = openFileDialog1.FileName;
       textBoxSoundFile.Text = filename;

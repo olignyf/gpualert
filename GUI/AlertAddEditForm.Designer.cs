@@ -24,7 +24,7 @@
     /// </summary>
     private void InitializeComponent() {
       this.applyButton = new System.Windows.Forms.Button();
-      this.portCancelButton = new System.Windows.Forms.Button();
+      this.buttonCancel = new System.Windows.Forms.Button();
       this.label2 = new System.Windows.Forms.Label();
       this.minUpDn = new System.Windows.Forms.NumericUpDown();
       this.maxUpDn = new System.Windows.Forms.NumericUpDown();
@@ -33,19 +33,19 @@
       this.turnOnRadio = new System.Windows.Forms.RadioButton();
       this.turnOffRadio = new System.Windows.Forms.RadioButton();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-      this.button1 = new System.Windows.Forms.Button();
+      this.buttonSelectProgram = new System.Windows.Forms.Button();
       this.programFilename = new System.Windows.Forms.TextBox();
       this.programArguments = new System.Windows.Forms.TextBox();
       this.label4 = new System.Windows.Forms.Label();
       this.processArguments = new System.Windows.Forms.TextBox();
-      this.test = new System.Windows.Forms.Button();
-      this.label5 = new System.Windows.Forms.Label();
+      this.buttonTestAction = new System.Windows.Forms.Button();
+      this.labelProcessOff = new System.Windows.Forms.Label();
       this.textBoxSoundFile = new System.Windows.Forms.TextBox();
       this.buttonSelectSoundFile = new System.Windows.Forms.Button();
-      this.button4 = new System.Windows.Forms.Button();
+      this.removeAlertButton = new System.Windows.Forms.Button();
       this.playSoundCheckbox = new System.Windows.Forms.CheckBox();
-      this.label6 = new System.Windows.Forms.Label();
-      this.label7 = new System.Windows.Forms.Label();
+      this.labelMin = new System.Windows.Forms.Label();
+      this.labelMax = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.minUpDn)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.maxUpDn)).BeginInit();
       this.SuspendLayout();
@@ -61,17 +61,17 @@
       this.applyButton.UseVisualStyleBackColor = true;
       this.applyButton.Click += new System.EventHandler(this.portOKButton_Click);
       // 
-      // portCancelButton
+      // buttonCancel
       // 
-      this.portCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.portCancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.portCancelButton.Location = new System.Drawing.Point(630, 393);
-      this.portCancelButton.Name = "portCancelButton";
-      this.portCancelButton.Size = new System.Drawing.Size(112, 33);
-      this.portCancelButton.TabIndex = 1;
-      this.portCancelButton.Text = "Cancel";
-      this.portCancelButton.UseVisualStyleBackColor = true;
-      this.portCancelButton.Click += new System.EventHandler(this.portCancelButton_Click);
+      this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+      this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonCancel.Location = new System.Drawing.Point(630, 393);
+      this.buttonCancel.Name = "buttonCancel";
+      this.buttonCancel.Size = new System.Drawing.Size(112, 33);
+      this.buttonCancel.TabIndex = 1;
+      this.buttonCancel.Text = "Cancel";
+      this.buttonCancel.UseVisualStyleBackColor = true;
+      this.buttonCancel.Click += new System.EventHandler(this.portCancelButton_Click);
       // 
       // label2
       // 
@@ -164,17 +164,17 @@
       // 
       this.openFileDialog1.FileName = "openFileDialog1";
       // 
-      // button1
+      // buttonSelectProgram
       // 
-      this.button1.Enabled = false;
-      this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.button1.Location = new System.Drawing.Point(570, 178);
-      this.button1.Name = "button1";
-      this.button1.Size = new System.Drawing.Size(134, 26);
-      this.button1.TabIndex = 14;
-      this.button1.Text = "Select Program";
-      this.button1.UseVisualStyleBackColor = true;
-      this.button1.Click += new System.EventHandler(this.button1_Click);
+      this.buttonSelectProgram.Enabled = false;
+      this.buttonSelectProgram.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonSelectProgram.Location = new System.Drawing.Point(570, 178);
+      this.buttonSelectProgram.Name = "buttonSelectProgram";
+      this.buttonSelectProgram.Size = new System.Drawing.Size(134, 26);
+      this.buttonSelectProgram.TabIndex = 14;
+      this.buttonSelectProgram.Text = "Select Program";
+      this.buttonSelectProgram.UseVisualStyleBackColor = true;
+      this.buttonSelectProgram.Click += new System.EventHandler(this.button1_Click);
       // 
       // programFilename
       // 
@@ -212,26 +212,26 @@
       this.processArguments.Size = new System.Drawing.Size(135, 22);
       this.processArguments.TabIndex = 18;
       // 
-      // test
+      // buttonTestAction
       // 
-      this.test.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.test.Location = new System.Drawing.Point(246, 329);
-      this.test.Name = "test";
-      this.test.Size = new System.Drawing.Size(115, 32);
-      this.test.TabIndex = 19;
-      this.test.Text = "Test Action";
-      this.test.UseVisualStyleBackColor = true;
-      this.test.Click += new System.EventHandler(this.test_Click);
+      this.buttonTestAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonTestAction.Location = new System.Drawing.Point(121, 329);
+      this.buttonTestAction.Name = "buttonTestAction";
+      this.buttonTestAction.Size = new System.Drawing.Size(115, 32);
+      this.buttonTestAction.TabIndex = 19;
+      this.buttonTestAction.Text = "Test Action";
+      this.buttonTestAction.UseVisualStyleBackColor = true;
+      this.buttonTestAction.Click += new System.EventHandler(this.test_Click);
       // 
-      // label5
+      // labelProcessOff
       // 
-      this.label5.AutoSize = true;
-      this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label5.Location = new System.Drawing.Point(382, 120);
-      this.label5.Name = "label5";
-      this.label5.Size = new System.Drawing.Size(276, 16);
-      this.label5.TabIndex = 20;
-      this.label5.Text = "a simple name like \"Photoshop\" or \"Chrome\" ";
+      this.labelProcessOff.AutoSize = true;
+      this.labelProcessOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.labelProcessOff.Location = new System.Drawing.Point(382, 120);
+      this.labelProcessOff.Name = "labelProcessOff";
+      this.labelProcessOff.Size = new System.Drawing.Size(276, 16);
+      this.labelProcessOff.TabIndex = 20;
+      this.labelProcessOff.Text = "a simple name like \"Photoshop\" or \"Chrome\" ";
       // 
       // textBoxSoundFile
       // 
@@ -254,17 +254,17 @@
       this.buttonSelectSoundFile.UseVisualStyleBackColor = true;
       this.buttonSelectSoundFile.Click += new System.EventHandler(this.buttonSelectSoundFile_Click);
       // 
-      // button4
+      // removeAlertButton
       // 
-      this.button4.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.button4.Location = new System.Drawing.Point(22, 393);
-      this.button4.Name = "button4";
-      this.button4.Size = new System.Drawing.Size(143, 33);
-      this.button4.TabIndex = 25;
-      this.button4.Text = "Remove Alert";
-      this.button4.UseVisualStyleBackColor = true;
-      this.button4.Click += new System.EventHandler(this.buttonRemoveAlert_Click);
+      this.removeAlertButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+      this.removeAlertButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.removeAlertButton.Location = new System.Drawing.Point(22, 393);
+      this.removeAlertButton.Name = "removeAlertButton";
+      this.removeAlertButton.Size = new System.Drawing.Size(143, 33);
+      this.removeAlertButton.TabIndex = 25;
+      this.removeAlertButton.Text = "Remove Alert";
+      this.removeAlertButton.UseVisualStyleBackColor = true;
+      this.removeAlertButton.Click += new System.EventHandler(this.buttonRemoveAlert_Click);
       // 
       // playSoundCheckbox
       // 
@@ -278,45 +278,45 @@
       this.playSoundCheckbox.UseVisualStyleBackColor = true;
       this.playSoundCheckbox.Click += new System.EventHandler(this.playSound_Click);
       // 
-      // label6
+      // labelMin
       // 
-      this.label6.AutoSize = true;
-      this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label6.Location = new System.Drawing.Point(199, 38);
-      this.label6.Name = "label6";
-      this.label6.Size = new System.Drawing.Size(170, 13);
-      this.label6.TabIndex = 27;
-      this.label6.Text = "leave empty for no minimum check";
+      this.labelMin.AutoSize = true;
+      this.labelMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.labelMin.Location = new System.Drawing.Point(199, 38);
+      this.labelMin.Name = "labelMin";
+      this.labelMin.Size = new System.Drawing.Size(170, 13);
+      this.labelMin.TabIndex = 27;
+      this.labelMin.Text = "leave empty for no minimum check";
       // 
-      // label7
+      // labelMax
       // 
-      this.label7.AutoSize = true;
-      this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label7.Location = new System.Drawing.Point(199, 80);
-      this.label7.Name = "label7";
-      this.label7.Size = new System.Drawing.Size(170, 13);
-      this.label7.TabIndex = 28;
-      this.label7.Text = "leave empty for no minimum check";
+      this.labelMax.AutoSize = true;
+      this.labelMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.labelMax.Location = new System.Drawing.Point(199, 80);
+      this.labelMax.Name = "labelMax";
+      this.labelMax.Size = new System.Drawing.Size(170, 13);
+      this.labelMax.TabIndex = 28;
+      this.labelMax.Text = "leave empty for no minimum check";
       // 
       // AlertAddEditForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.CancelButton = this.portCancelButton;
+      this.CancelButton = this.buttonCancel;
       this.ClientSize = new System.Drawing.Size(754, 438);
-      this.Controls.Add(this.label7);
-      this.Controls.Add(this.label6);
+      this.Controls.Add(this.labelMax);
+      this.Controls.Add(this.labelMin);
       this.Controls.Add(this.playSoundCheckbox);
-      this.Controls.Add(this.button4);
+      this.Controls.Add(this.removeAlertButton);
       this.Controls.Add(this.textBoxSoundFile);
       this.Controls.Add(this.buttonSelectSoundFile);
-      this.Controls.Add(this.label5);
-      this.Controls.Add(this.test);
+      this.Controls.Add(this.labelProcessOff);
+      this.Controls.Add(this.buttonTestAction);
       this.Controls.Add(this.processArguments);
       this.Controls.Add(this.label4);
       this.Controls.Add(this.programArguments);
       this.Controls.Add(this.programFilename);
-      this.Controls.Add(this.button1);
+      this.Controls.Add(this.buttonSelectProgram);
       this.Controls.Add(this.turnOffRadio);
       this.Controls.Add(this.turnOnRadio);
       this.Controls.Add(this.label3);
@@ -324,7 +324,7 @@
       this.Controls.Add(this.maxUpDn);
       this.Controls.Add(this.minUpDn);
       this.Controls.Add(this.label2);
-      this.Controls.Add(this.portCancelButton);
+      this.Controls.Add(this.buttonCancel);
       this.Controls.Add(this.applyButton);
       this.MaximizeBox = false;
       this.MinimizeBox = false;
@@ -342,7 +342,7 @@
     #endregion
 
     private System.Windows.Forms.Button applyButton;
-    private System.Windows.Forms.Button portCancelButton;
+    private System.Windows.Forms.Button buttonCancel;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.NumericUpDown minUpDn;
     private System.Windows.Forms.NumericUpDown maxUpDn;
@@ -351,18 +351,18 @@
     private System.Windows.Forms.RadioButton turnOnRadio;
     private System.Windows.Forms.RadioButton turnOffRadio;
     private System.Windows.Forms.OpenFileDialog openFileDialog1;
-    private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.Button buttonSelectProgram;
     private System.Windows.Forms.TextBox programFilename;
     private System.Windows.Forms.TextBox programArguments;
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.TextBox processArguments;
-    private System.Windows.Forms.Button test;
-    private System.Windows.Forms.Label label5;
+    private System.Windows.Forms.Button buttonTestAction;
+    private System.Windows.Forms.Label labelProcessOff;
     private System.Windows.Forms.TextBox textBoxSoundFile;
     private System.Windows.Forms.Button buttonSelectSoundFile;
-    private System.Windows.Forms.Button button4;
+    private System.Windows.Forms.Button removeAlertButton;
     private System.Windows.Forms.CheckBox playSoundCheckbox;
-    private System.Windows.Forms.Label label6;
-    private System.Windows.Forms.Label label7;
+    private System.Windows.Forms.Label labelMin;
+    private System.Windows.Forms.Label labelMax;
   }
 }

@@ -205,8 +205,8 @@ namespace OpenHardwareMonitor.Hardware {
 
     public float? Min { get { return minValue; } }
     public float? Max { get { return maxValue; } }
-    public string Alert { get { return alertValue; } set { alertValue = value; } }
-    public int Triggered { get { return alertTriggerCount; } set { alertTriggerCount = value; } }
+    public string AlertSummary { get { return alertValue; } set { alertValue = value; } }
+    public int AlertTriggeredCount { get { return alertTriggerCount; } set { alertTriggerCount = value; } }
 
     public void ResetMin() {
       minValue = null;

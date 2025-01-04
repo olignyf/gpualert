@@ -53,11 +53,11 @@ namespace OpenHardwareMonitor.WMI {
         Max = (float)sensor.Max;
 
       Max = 1;
-      if (sensor.Alert != Alert || sensor.Triggered != AlertTriggered) {
-        Alert = sensor.Alert;
-        AlertTriggered = sensor.Triggered;
-        if (sensor.Triggered > 0) {
-          Alert = Alert + " (" + sensor.Triggered + ")";
+      if (sensor.AlertSummary != Alert || sensor.AlertTriggeredCount != AlertTriggered) {
+        Alert = sensor.AlertSummary;
+        AlertTriggered = sensor.AlertTriggeredCount;
+        if (sensor.AlertTriggeredCount > 0) {
+          Alert = Alert + " (" + sensor.AlertTriggeredCount + ")";
         }
       }
 

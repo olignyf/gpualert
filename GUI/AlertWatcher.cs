@@ -316,20 +316,5 @@ namespace OpenHardwareMonitor.GUI {
 
       sensor.AlertSummary = null;
     }
-
-    public event EventHandler HideShowCommand;
-
-    public void SendHideShowCommand() {
-      if (HideShowCommand != null)
-        HideShowCommand(this, null);
-    }
-
-    public event EventHandler ExitCommand;
-
-    public void SendExitCommand() {
-      if (ExitCommand != null)
-        ExitCommand(this, null);
-    }
-
   }
 }

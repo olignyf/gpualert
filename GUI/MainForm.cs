@@ -116,7 +116,7 @@ namespace OpenHardwareMonitor.GUI {
       nodeTextBoxValue.DrawText += nodeTextBoxText_DrawText;
       nodeTextBoxMin.DrawText += nodeTextBoxText_DrawText;
       nodeTextBoxMax.DrawText += nodeTextBoxText_DrawText;
-      nodeTextBoxAlert.DrawText += nodeTextBoxText_DrawAlert;
+      nodeTextBoxAlert.DrawText += nodeTextBoxText_DrawText;
       nodeTextBoxText.EditorShowing += nodeTextBoxText_EditorShowing;
 
       this.sensor.Width = DpiHelper.LogicalToDeviceUnits(250);
@@ -145,8 +145,6 @@ namespace OpenHardwareMonitor.GUI {
       systemTray.ExitCommand += exitClick;
 
       alertWatcher = new AlertWatcher(computer, settings, unitManager);
-      alertWatcher.HideShowCommand += hideShowClick;
-      alertWatcher.ExitCommand += exitClick;
 
       if (Hardware.OperatingSystem.IsUnix) { // Unix
         treeView.RowHeight = Math.Max(treeView.RowHeight,
@@ -562,22 +560,6 @@ namespace OpenHardwareMonitor.GUI {
     }
 
     private void nodeTextBoxText_DrawText(object sender, DrawEventArgs e) {
-      Node node = e.Node.Tag as Node;
-      if (node != null) {
-        Color color;
-        if (node.IsVisible) {
-          SensorNode sensorNode = node as SensorNode;
-          if (plotMenuItem.Checked && sensorNode != null &&
-            sensorPlotColors.TryGetValue(sensorNode.Sensor, out color))
-            e.TextColor = color;
-        } else {
-          e.TextColor = Color.DarkGray;
-        }
-      }
-    }
-
-    // Draw alert if any
-    private void nodeTextBoxText_DrawAlert(object sender, DrawEventArgs e) {
       Node node = e.Node.Tag as Node;
       if (node != null) {
         Color color;

@@ -34,6 +34,10 @@ namespace OpenHardwareMonitor.GUI {
       m_alertConfig = alertConfig; // this trigger Edit mode if non-null
 
       InitializeComponent();
+
+
+      if (m_alertConfig != null)
+        this.Text = "Edit Alert" ;
     }
 
     private void portOKButton_Click(object sender, EventArgs e) {
